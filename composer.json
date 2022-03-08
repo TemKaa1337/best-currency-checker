@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "chrome-php/chrome": "^1.4",
         "guzzlehttp/guzzle": "^7.2",
         "imangazaliev/didom": "^1.18",
         "laravel/framework": "^9.2",
