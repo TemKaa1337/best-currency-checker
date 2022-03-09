@@ -17,7 +17,7 @@ class DistanceService
         $this->endPoint = $endPoint;
     }
 
-    public function getDistanceBetweenPointsInMeters(): int
+    public function getDistanceBetweenPointsInMeters(): float
     {
         $latStart = deg2rad($this->startPoint->getX());
         $lonStart = deg2rad($this->startPoint->getY());

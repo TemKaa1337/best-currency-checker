@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\DepartmentService;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Services\Department\DepartmentService;
+use Illuminate\Http\{Request, Response};
 
 class ApiController extends Controller
 {
     public function getNearestDepartments(Request $request): Response
     {
+        // TODO: add validation for , and .
         $request->validate([
             'location' => ['required', 'max:20'],
             'radius' => ['required', 'min:4', 'max:5']

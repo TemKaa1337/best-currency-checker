@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Department;
 
 use App\Models\BankCurrencyInfo;
 use App\Services\Distance\{DistanceService, Point};
@@ -23,13 +23,16 @@ class DepartmentService
         $departmentInfo = BankCurrencyInfo::all()
                                             ->map(function (BankCurrencyInfo $info) use ($userLocationPoint) : BankCurrencyInfo {
                                                 $departmentLocationPoint = new Point(explode(',', $info->location));
-                                                $distanceService = new DistanceService($userLocationPoint, $departmentLocationPoint);
+                                                $distanceService = new DistanceService(
+                                                    startPoint: $userLocationPoint,
+                                                    endPoint: $departmentLocationPoint
+                                                );
 
                                                 $info->distance = $distanceService->getDistanceBetweenPointsInMeters();
 
                                                 return $info;
                                             })->reject(fn (BankCurrencyInfo $info): bool => $info->distance > $this->radiusInMeters)
-                                            ->sortBy(fn (BankCurrencyInfo $info): BankCurrencyInfo => $info->distance)
+                                            ->sortBy(fn (BankCurrencyInfo $info): float => $info->distance)
                                             ->all();
 
         return $departmentInfo;
