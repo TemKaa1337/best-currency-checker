@@ -2,11 +2,14 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-use HeadlessChromium\BrowserFactory;
+use Illuminate\Console\Command;
 use App\Models\BankCurrencyInfo;
-use HeadlessChromium\Browser\ProcessAwareBrowser;
+use HeadlessChromium\{
+    Browser\ProcessAwareBrowser,
+    BrowserFactory,
+    Page
+};
 use DiDom\Document;
 
 class ParserCurrencyRates extends Command
@@ -26,6 +29,7 @@ class ParserCurrencyRates extends Command
     protected $description = 'Command description';
 
     private array $overallInfo = [];
+
     private ProcessAwareBrowser $browser;
 
     /**
@@ -87,8 +91,9 @@ class ParserCurrencyRates extends Command
         try {
             // creates a new page and navigate to an URL
             $page = $this->browser->createPage();
+            // $page->navigate('https://myfin.by/currency/minsk')->waitForNavigation(Page::DOM_CONTENT_LOADED, 5000);
             $page->navigate('https://myfin.by/currency/minsk')->waitForNavigation();
-            $html = $page->getHtml();
+            $html = $page->getHtml(5000);
 
             // $document = new Document('C:\Users\Admin\Desktop\MYPROJECTS\best-currency-checker\server\public\main.html', true);
             $document = new Document($html);
@@ -115,8 +120,8 @@ class ParserCurrencyRates extends Command
                     $lastUpdate = $departmentInfo[1]->text();
 
                     $innerInfo = $this->browserParseSubPage($innerPageLink);
-                    dd($innerInfo);
-                    die();
+                    // dd($innerInfo);
+                    // die();
 
                     $bankBuysUsd = $tds[1]->text();
                     $bankSellsUsd = $tds[2]->text();
@@ -124,7 +129,6 @@ class ParserCurrencyRates extends Command
                     $bankSellsEur = $tds[4]->text();
 
                     $this->overallInfo[$bank][] = array_merge($innerInfo, [
-                        // 'department_address' => $address,
                         'department_last_update' => $lastUpdate,
                         'currency_info' => [
                             'usd' => [
@@ -145,10 +149,13 @@ class ParserCurrencyRates extends Command
                     echo "drodaja usd {$bankSellsUsd}".PHP_EOL;
                     echo "pokupka eur {$bankBuysEur}".PHP_EOL;
                     echo "pokupka eur {$bankSellsEur}".PHP_EOL;
-                    die();
                 }
+
+                var_dump($this->overallInfo);
+                die();
             }
 
+            $this->browser->close();
             die();
         } finally {
             // bye
@@ -162,7 +169,7 @@ class ParserCurrencyRates extends Command
             // creates a new page and navigate to an URL
             $page = $this->browser->createPage();
             $page->navigate($url)->waitForNavigation();
-            $html = $page->getHtml();
+            $html = $page->getHtml(5000);
 
             $document = new Document($html);
 
@@ -199,8 +206,7 @@ class ParserCurrencyRates extends Command
                 'coordinates' => explode(',', $coordinates)
             ];
         } finally {
-            // bye
-            // $this->browser->close();
+
         }
     }
 
