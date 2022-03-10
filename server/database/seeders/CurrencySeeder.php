@@ -15,7 +15,7 @@ class CurrencySeeder extends Seeder
      */
     public function run()
     {
-        $splitPhones = function (string $phones): string {
+        $splitPhones = function (string $phones): array {
             return array_map(fn (string $elem): string => trim($elem), preg_split('/(;|,)/', $phones));
         };
 
