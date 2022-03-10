@@ -79,17 +79,7 @@ class ParserCurrencyRates extends Command
             BankCurrencyInfo::upsert(
                 $departments,
                 ['name'],
-                [
-                    'name',
-                    'address',
-                    'phones',
-                    'website',
-                    'working_time',
-                    'coordinates',
-                    'last_update',
-                    'currency_info',
-                    'bank_name'
-                ]
+                ['name', 'address', 'phones', 'website', 'working_time', 'coordinates', 'last_update', 'currency_info', 'bank_name']
             );
         }
     }
@@ -139,7 +129,7 @@ class ParserCurrencyRates extends Command
 
                 $this->overallInfo[$bank][] = array_merge($innerInfo, [
                     'last_update' => $lastUpdate,
-                    'currency_info' => [
+                    'currency_info' => json_encode([
                         'usd' => [
                             'bank_buys' => $bankBuysUsd,
                             'bank_sells' => $bankSellsUsd
@@ -148,7 +138,7 @@ class ParserCurrencyRates extends Command
                             'bank_buys' => $bankBuysEur,
                             'bank_sells' => $bankSellsEur
                         ]
-                    ]
+                    ])
                 ]);
 
                 echo "department with address {$address}".PHP_EOL;
@@ -194,10 +184,10 @@ class ParserCurrencyRates extends Command
         return [
             'name' => $name,
             'address' => $address,
-            'phones' => $phones,
+            'phones' => json_encode($phones),
             'working_time' => $workingTime,
             'website' => $website,
-            'coordinates' => array_map('trim', explode(',', $coordinates))
+            'coordinates' => json_encode(array_map('trim', explode(',', $coordinates)))
         ];
     }
 
