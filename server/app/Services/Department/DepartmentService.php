@@ -20,6 +20,8 @@ class DepartmentService
     {
         $userLocationPoint = new Point(explode(',', $this->location));
 
+        // TODO: unset distance
+        // TODO: add is_working_now
         $departmentInfo = BankCurrencyInfo::all()
                                             ->map(function (BankCurrencyInfo $info) use ($userLocationPoint) : BankCurrencyInfo {
                                                 $departmentLocationPoint = new Point($info->coordinates);
@@ -33,7 +35,8 @@ class DepartmentService
                                                 return $info;
                                             })->reject(fn (BankCurrencyInfo $info): bool => $info->distance > $this->radiusInMeters)
                                             ->sortBy(fn (BankCurrencyInfo $info): float => $info->distance)
-                                            ->values()->all();
+                                            ->values()
+                                            ->all();
 
         return $departmentInfo;
     }
