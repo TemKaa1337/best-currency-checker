@@ -84,6 +84,7 @@ class ParserCurrencyRates extends Command
     private function getDataFromMainPage(string $html): void
     {
         $document = new Document($html);
+        $now = date('Y-m-d H:i:s');
 
         $departments = $document->find('table');
         array_shift($departments);
@@ -103,7 +104,14 @@ class ParserCurrencyRates extends Command
                 $departmentInfo = $tds[0]->find('div');
                 $innerPageLink = 'https://myfin.by'.$departmentInfo[0]->find('a')[0]->href;
                 $address = $departmentInfo[0]->text();
+
                 $lastUpdate = $departmentInfo[1]->text();
+
+                if ($now >= date('Y-m-d').' '.$lastUpdate.':00') {
+                    $lastUpdate = date('Y-m-d').' '.$lastUpdate.':00';
+                } else {
+                    $lastUpdate = date('Y-m-d', strtotime('-1 day')).' '.$lastUpdate.':00';
+                }
 
                 if ($this->type === 'request') {
                     $innerInfo = $this->parseInnerPageWithRequest($innerPageLink);
