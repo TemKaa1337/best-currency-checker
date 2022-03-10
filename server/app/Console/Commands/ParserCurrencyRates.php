@@ -151,8 +151,8 @@ class ParserCurrencyRates extends Command
                 echo "pokupka eur {$bankSellsEur}".PHP_EOL;
             }
 
-            $this->update();
-            die();
+            // $this->update();
+            // die();
         }
     }
 
