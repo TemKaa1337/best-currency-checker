@@ -22,7 +22,7 @@ class DepartmentService
 
         $departmentInfo = BankCurrencyInfo::all()
                                             ->map(function (BankCurrencyInfo $info) use ($userLocationPoint) : BankCurrencyInfo {
-                                                $departmentLocationPoint = new Point(explode(',', $info->coordinates));
+                                                $departmentLocationPoint = new Point($info->coordinates);
                                                 $distanceService = new DistanceService(
                                                     startPoint: $userLocationPoint,
                                                     endPoint: $departmentLocationPoint
