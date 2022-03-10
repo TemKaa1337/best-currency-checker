@@ -72,7 +72,7 @@ class ParserCurrencyRates extends Command
 
     private function browserParseMainPage(): void
     {
-        $browserFactory = new BrowserFactory();
+        $browserFactory = new BrowserFactory('google-chrome');
 
         // starts headless chrome
         $this->browser = $browserFactory->createBrowser([
