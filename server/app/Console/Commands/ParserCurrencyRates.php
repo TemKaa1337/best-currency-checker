@@ -51,8 +51,23 @@ class ParserCurrencyRates extends Command
     {
         // $this->parseMainPage();
         $this->browserParseMainPage();
+        $this->update();
 
         return 0;
+    }
+
+    public function update(): void
+    {
+        var_dump($this->overallInfo, json_encode($this->overallInfo));
+
+        foreach ($this->overallInfo as $bankName => $departments) {
+            foreach ($departments as $department) {
+                BankCurrencyInfo::updateOrCreate(
+                    ['name' => $department],
+                    $department
+                );
+            }
+        }
     }
 
     private function browserParseMainPage(): void
@@ -129,7 +144,7 @@ class ParserCurrencyRates extends Command
                     $bankSellsEur = $tds[4]->text();
 
                     $this->overallInfo[$bank][] = array_merge($innerInfo, [
-                        'department_last_update' => $lastUpdate,
+                        'last_update' => $lastUpdate,
                         'currency_info' => [
                             'usd' => [
                                 'bank_buys' => $bankBuysUsd,
@@ -155,8 +170,8 @@ class ParserCurrencyRates extends Command
                 die();
             }
 
-            $this->browser->close();
-            die();
+            // $this->browser->close();
+            // die();
         } finally {
             // bye
             $this->browser->close();

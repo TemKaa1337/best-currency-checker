@@ -2,10 +2,27 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{
+    Factories\HasFactory,
+    Casts\Attribute,
+    Model
+};
 
 class BankCurrencyInfo extends Model
 {
     use HasFactory;
+
+    protected function phones(): Attribute
+    {
+        return Attribute::make(
+            fn (string $value): array => json_decode($value)
+        );
+    }
+
+    protected function currencyInfo(): Attribute
+    {
+        return Attribute::make(
+            fn (string $value): array => json_decode($value)
+        );
+    }
 }

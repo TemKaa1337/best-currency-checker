@@ -15,6 +15,15 @@ return new class extends Migration
     {
         Schema::create('bank_currency_infos', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('address');
+            $table->json('phones');
+            $table->string('website');
+            $table->string('working_time');
+            $table->string('coordinates');
+            $table->dateTime('last_update');
+            $table->json('currency_info');
+            $table->string('bank_name');
             $table->timestamps();
         });
     }
