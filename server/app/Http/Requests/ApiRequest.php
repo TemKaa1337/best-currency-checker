@@ -2,10 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Exceptions\ValidationException;
 
 class ApiRequest extends FormRequest
 {
@@ -24,27 +22,23 @@ class ApiRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'location' => ['required', 'string', 'max:20'],
-            'radius' => ['required', 'string', 'min:4', 'max:5']
+            //
         ];
     }
 
-    public function messages(): array
+    public function validate(): void
     {
-        return [
-            'location.required' => 'Location parameter is missing',
-            'redious.required' => 'Radius parameter is missing'
-        ];
-    }
+        if ($this->request->location === null) {
+            $error = 'Location field is emty';
+        } else if ($this->request->radius === null) {
+            $error = 'Radius field is empty.';
+        }
 
-    protected function failedValidation(Validator $validator): void
-    {
-        $errors = (new ValidationException($validator))->errors();
-        throw new HttpResponseException(
-            response(['success' => false, 'error' => $errors], 400)
-        );
+        if (isset($error)) {
+            throw new ValidationException($error);
+        }
     }
 }
