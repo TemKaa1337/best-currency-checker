@@ -138,7 +138,8 @@ class ParserCurrencyRates extends Command
                             'bank_buys' => $bankBuysEur,
                             'bank_sells' => $bankSellsEur
                         ]
-                    ])
+                        ]),
+                        'bank_name' => $bank
                 ]);
 
                 echo "department with address {$address}".PHP_EOL;
