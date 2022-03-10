@@ -12,6 +12,8 @@ class ApiController extends Controller
     public function getNearestDepartments(ApiRequest $request): Response
     {
         // TODO: add validation for , and .
+        $request->validate();
+
         // try {
         //     $request->validateFields();
         // } catch (ValidationException $e) {
