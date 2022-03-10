@@ -9,6 +9,7 @@ class ApiController extends Controller
 {
     public function getNearestDepartments(Request $request): Response
     {
+        return response([], 200);
         // TODO: add validation for , and .
         $request->validate([
             'location' => ['required', 'max:20'],
