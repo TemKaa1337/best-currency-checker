@@ -78,7 +78,18 @@ class ParserCurrencyRates extends Command
         foreach ($this->overallInfo as $bankName => $departments) {
             BankCurrencyInfo::upsert(
                 $departments,
-                ['name']
+                ['name'],
+                [
+                    'name',
+                    'address',
+                    'phones',
+                    'website',
+                    'working_time',
+                    'coordinates',
+                    'last_update',
+                    'currency_info',
+                    'bank_name'
+                ]
             );
         }
     }
@@ -107,7 +118,7 @@ class ParserCurrencyRates extends Command
                 $innerPageLink = 'https://myfin.by'.$departmentInfo[0]->find('a')[0]->href;
                 $address = $departmentInfo[0]->text();
 
-                $lastUpdate = $departmentInfo[1]->text();
+                $lastUpdate = trim($departmentInfo[1]->text());
 
                 if ($now >= date('Y-m-d').' '.$lastUpdate.':00') {
                     $lastUpdate = date('Y-m-d').' '.$lastUpdate.':00';
@@ -148,6 +159,9 @@ class ParserCurrencyRates extends Command
                 echo "pokupka eur {$bankBuysEur}".PHP_EOL;
                 echo "pokupka eur {$bankSellsEur}".PHP_EOL;
             }
+
+            $this->update();
+            die();
         }
     }
 
@@ -160,7 +174,7 @@ class ParserCurrencyRates extends Command
 
         $name = $fields[0]->find('td')[1]->text();
         $address = $fields[1]->find('td')[1]->text();
-        $phones = $fields[2]->find('td')[1]->text();
+        $phones = $this->splitPhones($fields[2]->find('td')[1]->text());
         $workingTime = implode(', ', array_map(fn (string $elem): string => trim($elem), explode(',', $fields[3]->find('td')[1]->text())));
         $website = trim($fields[4]->find('td')[1]->text());
 
@@ -182,7 +196,7 @@ class ParserCurrencyRates extends Command
             'phones' => $phones,
             'working_time' => $workingTime,
             'website' => $website,
-            'coordinates' => explode(',', $coordinates)
+            'coordinates' => array_map('trim', explode(',', $coordinates))
         ];
     }
 
@@ -255,5 +269,10 @@ class ParserCurrencyRates extends Command
         } finally {
 
         }
+    }
+
+    private function splitPhones(string $phones): array
+    {
+        return array_map(fn (string $elem): string => trim($elem), preg_split('/(;|,)/', $phones));
     }
 }

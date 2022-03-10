@@ -202,8 +202,9 @@ class CurrencySeeder extends Seeder
             ]
         ];
 
-        foreach ($departments as $department) {
-            BankCurrencyInfo::create($department);
-        }
+        // foreach ($departments as $department) {
+        //     BankCurrencyInfo::create($department);
+        // }
+        $lastBanksJson = '';
     }
 }
