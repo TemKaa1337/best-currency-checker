@@ -138,9 +138,6 @@ class ParserCurrencyRates extends Command
                 echo "pokupka eur {$bankBuysEur}".PHP_EOL;
                 echo "pokupka eur {$bankSellsEur}".PHP_EOL;
             }
-
-            var_dump($this->overallInfo);
-            die();
         }
     }
 
