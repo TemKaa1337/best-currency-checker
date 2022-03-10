@@ -17,9 +17,12 @@ class BankCurrencyInfo extends Model
     protected $casts = [
         'phones' => 'array',
         'coordinates' => 'array',
-        'currency_info' => 'array',
-        'created_at' => 'date',
-        'updated_at' => 'date',
-        'last_update' => 'date'
+        'currency_info' => 'array'
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'last_update'
     ];
 }
