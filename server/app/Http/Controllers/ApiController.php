@@ -15,7 +15,7 @@ class ApiController extends Controller
         try {
             $request->validate();
         } catch (ValidationException $e) {
-            return response($e->getMessage(), 400);
+            return response($e->getMessage(), 200);
         }
 
         $departmentService = new DepartmentService(
