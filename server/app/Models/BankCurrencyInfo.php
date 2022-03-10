@@ -15,21 +15,21 @@ class BankCurrencyInfo extends Model
     protected function phones(): Attribute
     {
         return Attribute::make(
-            fn (string $value): array => json_decode($value, true)
+            get: fn (string $value): array => json_decode($value, true)
         );
     }
 
     protected function coordinates(): Attribute
     {
         return Attribute::make(
-            fn (string $value): array => json_decode($value, true)
+            get: fn (string $value): array => json_decode($value, true)
         );
     }
 
     protected function currencyInfo(): Attribute
     {
         return Attribute::make(
-            fn (string $value): array => json_decode($value, true)
+            get: fn (string $value): array => json_decode($value, true)
         );
     }
 }
