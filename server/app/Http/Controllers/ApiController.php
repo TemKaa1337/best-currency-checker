@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Services\Department\DepartmentService;
-use Illuminate\Http\{Request, Response};
 use App\Http\Requests\ApiRequest;
-use App\Exceptions\ValidationException;
+use Illuminate\Http\Response;
 
 class ApiController extends Controller
 {
@@ -13,12 +12,6 @@ class ApiController extends Controller
     {
         // TODO: add validation for , and .
         $request->validate();
-
-        // try {
-        //     $request->validateFields();
-        // } catch (ValidationException $e) {
-        //     return response($e->getMessage(), 400);
-        // }
 
         $departmentService = new DepartmentService(
             location: $request->location,
