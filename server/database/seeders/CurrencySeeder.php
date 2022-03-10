@@ -26,7 +26,7 @@ class CurrencySeeder extends Seeder
                 "phones" => $splitPhones("+375-29-675-45-78, +375-33-675-45-78, +375-25-675-45-78, +375-17-239-70-75, 7545"),
                 "working_time" => "Пн-Пт: 09:00-19:00, Сб-Вс: Выходной",
                 "website" => "absolutbank.by",
-                "coordinates" => json_encode("53.925785", "27.616836"),
+                "coordinates" => json_encode(["53.925785", "27.616836"]),
                 "last_update" => date('Y-m-d')." 09:16".':00',
                 "currency_info" => json_encode([
                     "usd" => [
