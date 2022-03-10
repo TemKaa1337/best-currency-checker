@@ -19,6 +19,13 @@ class BankCurrencyInfo extends Model
         );
     }
 
+    protected function coordinates(): Attribute
+    {
+        return Attribute::make(
+            fn (string $value): array => json_decode($value)
+        );
+    }
+
     protected function currencyInfo(): Attribute
     {
         return Attribute::make(
