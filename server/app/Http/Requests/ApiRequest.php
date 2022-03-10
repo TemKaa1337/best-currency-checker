@@ -56,10 +56,17 @@ class ApiRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        $errors = (new ValidationException($validator))->errors();
+        $formattedErrors = [];
+        $errorInfo = (new ValidationException($validator))->errors();
+
+        foreach ($errorInfo as $field => $errors) {
+            foreach ($errors as $error) {
+                $formattedErrors[] = $error;
+            }
+        }
 
         throw new HttpResponseException(
-            response(['success' => false, 'error' => $errors], 400)
+            response(['success' => false, 'error' => $formattedErrors], 400)
         );
     }
 }
