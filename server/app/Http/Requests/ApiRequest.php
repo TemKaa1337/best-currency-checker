@@ -44,7 +44,7 @@ class ApiRequest extends FormRequest
     {
         $errors = (new ValidationException($validator))->errors();
         throw new HttpResponseException(
-            response()->json(['success' => false, 'error' => $errors], 400)
+            response(['success' => false, 'error' => $errors], 400)
         );
     }
 }
