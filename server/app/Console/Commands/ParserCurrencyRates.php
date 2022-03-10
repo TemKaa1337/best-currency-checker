@@ -91,7 +91,7 @@ class ParserCurrencyRates extends Command
         $departments = $document->find('table');
         array_shift($departments);
         array_shift($departments);
-        dd(count($departments));
+
         foreach ($departments as $department) {
             $bank = trim(str_replace('Отделения ', '', $department->find('thead')[0]->find('th')[0]->text()));
 
