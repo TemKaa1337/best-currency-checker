@@ -65,7 +65,7 @@ class ParserCurrencyRates extends Command
                 $this->parseMainPageWithBrowser();
             }
 
-            $this->update();
+            // $this->update();
         }
 
         return 0;
@@ -151,7 +151,8 @@ class ParserCurrencyRates extends Command
                 echo "pokupka eur {$bankSellsEur}".PHP_EOL;
             }
 
-            // $this->update();
+            $this->update();
+            $this->overallInfo = [];
             // die();
         }
     }
