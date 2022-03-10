@@ -43,7 +43,7 @@ class _DepartmentsState extends State<Departments> {
         departments.add(departmentInfo);
       }
     } else {
-      
+
     }
 
     return response;
