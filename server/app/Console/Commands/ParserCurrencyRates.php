@@ -160,7 +160,11 @@ class ParserCurrencyRates extends Command
     {
         $document = new Document($html);
 
-        $info = $document->find('.table-responsive')[0]->find('table')[0];
+        try {
+            $info = $document->find('.table-responsive')[0]->find('table')[0];
+        } catch (\Exception $e) {
+            dd($document->html());
+        }
         $fields = $info->find('tr');
 
         $name = $fields[0]->find('td')[1]->text();
