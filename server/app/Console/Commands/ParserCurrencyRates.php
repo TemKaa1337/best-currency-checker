@@ -185,7 +185,8 @@ class ParserCurrencyRates extends Command
 
         echo "nazvanie: {$name}".PHP_EOL;
         echo "adres: {$address}".PHP_EOL;
-        echo "telefon: {$phones} ".PHP_EOL;
+        $viewPhones = implode(',', $phones);
+        echo "telefon: {$viewPhones} ".PHP_EOL;
         echo "vremya raboti: {$workingTime}".PHP_EOL;
         echo "website: {$website}".PHP_EOL;
         echo "coordinates: {$coordinates}".PHP_EOL;
