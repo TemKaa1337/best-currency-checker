@@ -12,24 +12,9 @@ class BankCurrencyInfo extends Model
 {
     use HasFactory;
 
-    protected function phones(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value): array => json_decode($value, true)
-        );
-    }
-
-    protected function coordinates(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value): array => json_decode($value, true)
-        );
-    }
-
-    protected function currencyInfo(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value): array => json_decode($value, true)
-        );
-    }
+    protected $casts = [
+        'phones' => 'array',
+        'coordinates' => 'array',
+        'currency_info' => 'array'
+    ];
 }
