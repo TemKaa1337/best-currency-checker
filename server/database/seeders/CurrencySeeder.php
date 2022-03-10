@@ -16,7 +16,7 @@ class CurrencySeeder extends Seeder
     public function run()
     {
         $splitPhones = function (string $phones): string {
-            return json_encode(array_map(fn (string $elem): string => trim($elem), preg_split('/(;|,)/', $phones)));
+            return array_map(fn (string $elem): string => trim($elem), preg_split('/(;|,)/', $phones));
         };
 
         $departments = [
@@ -26,9 +26,9 @@ class CurrencySeeder extends Seeder
                 "phones" => $splitPhones("+375-29-675-45-78, +375-33-675-45-78, +375-25-675-45-78, +375-17-239-70-75, 7545"),
                 "working_time" => "Пн-Пт: 09:00-19:00, Сб-Вс: Выходной",
                 "website" => "absolutbank.by",
-                "coordinates" => json_encode(["53.925785", "27.616836"]),
+                "coordinates" => ["53.925785", "27.616836"],
                 "last_update" => date('Y-m-d')." 09:16".':00',
-                "currency_info" => json_encode([
+                "currency_info" => [
                     "usd" => [
                         "bank_buys" => "3.58",
                         "bank_sells" => "3.85"
@@ -37,7 +37,7 @@ class CurrencySeeder extends Seeder
                         "bank_buys" => "3.82",
                         "bank_sells" => "4.12"
                     ]
-                ]),
+                ],
                 'bank_name' => 'Абсолютбанк'
             ],
             [
@@ -46,9 +46,9 @@ class CurrencySeeder extends Seeder
                 "phones" => $splitPhones("+375-29-675-45-78; +375-33-675-45-78; +375-25-675-45-78; 7545 (контакт-центр), +375-17-239-70-75"),
                 "working_time" => "Пн-Пт: 09:10-21:35 Перерыв: 20:15-20:30, Сб-Вс: 09:00-21:35 Перерыв: 20:15-20:30",
                 "website" => "absolutbank.by",
-                "coordinates" => json_encode(["53.936519", "27.673331"]),
+                "coordinates" => ["53.936519", "27.673331"],
                 "last_update" => date('Y-m-d')." 09:16".':00',
-                "currency_info" => json_encode([
+                "currency_info" => [
                     "usd" => [
                         "bank_buys" => "3.53",
                         "bank_sells" => "3.89"
@@ -57,7 +57,7 @@ class CurrencySeeder extends Seeder
                         "bank_buys" => "3.75",
                         "bank_sells" => "4.2"
                     ]
-                ]),
+                ],
                 'bank_name' => 'Абсолютбанк'
             ],
             [
@@ -66,9 +66,9 @@ class CurrencySeeder extends Seeder
                 "phones" => $splitPhones("+375-29-675-45-78; +375-33-675-45-78; +375-25-675-45-78; 7545 (контакт-центр), +375-17-239-70-75"),
                 "working_time" => "Пн-Пт: 09:10-21:35 Перерыв: 13:45-14:00, 15:45-16:30, 20:30-20:45, Сб-Вс: 09:00-21:35 Перерыв: 13:45-14:00, 15:45-16:30, 20:30-20:45",
                 "website" => "absolutbank.by",
-                "coordinates" => json_encode(["53.936376973336294", "27.673358161704368"]),
+                "coordinates" => ["53.936376973336294", "27.673358161704368"],
                 "last_update" => date('Y-m-d')." 09:16".':00',
-                "currency_info" => json_encode([
+                "currency_info" => [
                     "usd" => [
                         "bank_buys" => "3.53",
                         "bank_sells" => "3.89"
@@ -77,7 +77,7 @@ class CurrencySeeder extends Seeder
                         "bank_buys" => "3.75",
                         "bank_sells" => "4.2"
                     ]
-                ]),
+                ],
                 'bank_name' => 'Абсолютбанк'
             ],
             [
@@ -86,9 +86,9 @@ class CurrencySeeder extends Seeder
                 "phones" => $splitPhones("+375-29-675-45-78; +375-33-675-45-78; +375-25-675-45-78; 7545 (контакт-центр)"),
                 "working_time" => "Пн-Пт: 09:30-19:00, Сб-Вс: Выходной",
                 "website" => "absolutbank.by",
-                "coordinates" => json_encode(["53.905375574665165", "27.457999831343304"]),
+                "coordinates" => ["53.905375574665165", "27.457999831343304"],
                 "last_update" => date('Y-m-d')." 09:16".':00',
-                "currency_info" => json_encode([
+                "currency_info" => [
                     "usd" => [
                         "bank_buys" => "3.58",
                         "bank_sells" => "3.85"
@@ -97,7 +97,7 @@ class CurrencySeeder extends Seeder
                         "bank_buys" => "3.82",
                         "bank_sells" => "4.12"
                     ]
-                ]),
+                ],
                 'bank_name' => 'Абсолютбанк'
             ],
             [
@@ -106,9 +106,9 @@ class CurrencySeeder extends Seeder
                 "phones" => $splitPhones("+375-29-675-45-78; +375-33-675-45-78; +375-25-675-45-78; 7545 (контакт-центр)"),
                 "working_time" => "Пн-Пт: 10:00-19:00, Сб-Вс: Выходной",
                 "website" => "absolutbank.by",
-                "coordinates" => json_encode(["53.88568963719372", "27.515069653106"]),
+                "coordinates" => ["53.88568963719372", "27.515069653106"],
                 "last_update" => date('Y-m-d')." 09:16".':00',
-                "currency_info" => json_encode([
+                "currency_info" => [
                     "usd" => [
                         "bank_buys" => "3.58",
                         "bank_sells" => "3.85"
@@ -117,7 +117,7 @@ class CurrencySeeder extends Seeder
                         "bank_buys"=> "3.82",
                         "bank_sells"=> "4.12"
                     ]
-                ]),
+                ],
                 'bank_name' => 'Абсолютбанк'
             ],
             [
@@ -126,9 +126,9 @@ class CurrencySeeder extends Seeder
                 "phones" => $splitPhones("7545, +375-29-675-45-78, +375-33-675-45-78, +375-25-675-45-78, +375-17-239-70-75"),
                 "working_time" => "Пн-Пт: 10:20-19:00, Сб-Вс: 10:40-20:00",
                 "website" => "absolutbank.by",
-                "coordinates" => json_encode(["53.871594", "27.572799"]),
+                "coordinates" => ["53.871594", "27.572799"],
                 "last_update" => date('Y-m-d')." 09:16".':00',
-                "currency_info" => json_encode([
+                "currency_info" => [
                     "usd" => [
                         "bank_buys" => "3.58",
                         "bank_sells" => "3.85"
@@ -137,7 +137,7 @@ class CurrencySeeder extends Seeder
                         "bank_buys"=> "3.82",
                         "bank_sells"=> "4.12"
                     ]
-                ]),
+                ],
                 'bank_name' => 'Абсолютбанк'
             ],
             [
@@ -146,9 +146,9 @@ class CurrencySeeder extends Seeder
                 "phones" => $splitPhones("+375-29-675-45-78; +375-33-675-45-78; +375-25-675-45-78; 7545 (контакт-центр), +375-17-239-70-75, юрлицам: +375-29-636-62-25, +375-17-239-70-85"),
                 "working_time" => "Пн-Пт: 09:00-19:00, Сб-Вс: Выходной",
                 "website" => "absolutbank.by",
-                "coordinates" => json_encode(["53.945595426313645", "27.68332114517147"]),
+                "coordinates" => ["53.945595426313645", "27.68332114517147"],
                 "last_update" => date('Y-m-d')." 09:16".':00',
-                "currency_info" => json_encode([
+                "currency_info" => [
                     "usd" => [
                         "bank_buys"=> "3.58",
                         "bank_sells"=> "3.85"
@@ -157,7 +157,7 @@ class CurrencySeeder extends Seeder
                         "bank_buys" => "3.82",
                         "bank_sells" => "4.12"
                     ]
-                ]),
+                ],
                 'bank_name' => 'Абсолютбанк'
             ],
             [
@@ -166,9 +166,9 @@ class CurrencySeeder extends Seeder
                 "phones" => $splitPhones("+375-29-675-45-78; +375-33-675-45-78; +375-25-675-45-78; 7545 (контакт-центр)"),
                 "working_time" => "Пн-Пт: 10:30-21:10 Перерыв: 19:45-20:00, Сб-Вс: 10:20-21:10 Перерыв: 19:45-20:00",
                 "website" => "absolutbank.by",
-                "coordinates" => json_encode(["53.908039", "27.527327"]),
+                "coordinates" => ["53.908039", "27.527327"],
                 "last_update" => date('Y-m-d')." 09:16".':00',
-                "currency_info" => json_encode([
+                "currency_info" => [
                     "usd" => [
                         "bank_buys" => "3.53",
                         "bank_sells" => "3.89"
@@ -177,7 +177,7 @@ class CurrencySeeder extends Seeder
                         "bank_buys" => "3.75",
                         "bank_sells" => "4.2"
                     ]
-                ]),
+                ],
                 'bank_name' => 'Абсолютбанк'
             ],
             [
@@ -186,9 +186,9 @@ class CurrencySeeder extends Seeder
                 "phones" => $splitPhones("+375-29-675-45-78; +375-33-675-45-78; +375-25-675-45-78; 7545 (контакт-центр)"),
                 "working_time" => "Пн-Пт: 10:30-21:10 Перерыв: 19:15-19:30, Сб-Вс: 10:20-21:10 Перерыв: 19:15-19:30",
                 "website" => "absolutbank.by",
-                "coordinates" => json_encode(["53.908039", "27.527327"]),
+                "coordinates" => ["53.908039", "27.527327"],
                 "last_update" => date('Y-m-d')." 09:16".':00',
-                "currency_info" => json_encode([
+                "currency_info" => [
                     "usd" => [
                         "bank_buys" => "3.53",
                         "bank_sells" => "3.89"
@@ -197,7 +197,7 @@ class CurrencySeeder extends Seeder
                         "bank_buys" => "3.75",
                         "bank_sells" => "4.2"
                     ]
-                ]),
+                ],
                 'bank_name' => 'Абсолютбанк'
             ]
         ];
