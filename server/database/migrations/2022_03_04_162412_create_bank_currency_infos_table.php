@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('bank_currency_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('address');
             $table->json('phones');
             $table->string('website');

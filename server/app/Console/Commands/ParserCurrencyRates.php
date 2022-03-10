@@ -74,12 +74,10 @@ class ParserCurrencyRates extends Command
         var_dump($this->overallInfo, json_encode($this->overallInfo));
 
         foreach ($this->overallInfo as $bankName => $departments) {
-            foreach ($departments as $department) {
-                BankCurrencyInfo::updateOrCreate(
-                    ['name' => $department],
-                    $department
-                );
-            }
+            BankCurrencyInfo::upsert(
+                $departments,
+                ['name']
+            );
         }
     }
 
@@ -93,6 +91,7 @@ class ParserCurrencyRates extends Command
 
         foreach ($departments as $department) {
             $bank = trim(str_replace('Отделения ', '', $department->find('thead')[0]->find('th')[0]->text()));
+
             $tbody = $department->find('tbody')[0];
             $this->overallInfo[$bank] = [];
             echo "bank {$bank}".PHP_EOL;
