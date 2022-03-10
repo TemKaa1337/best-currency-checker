@@ -12,8 +12,6 @@ class BankCurrencyInfo extends Model
 {
     use HasFactory;
 
-    // protected $dateFormat = 'Y-m-d H:i:s';
-
     protected $casts = [
         'phones' => 'array',
         'coordinates' => 'array',
@@ -22,10 +20,4 @@ class BankCurrencyInfo extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'last_update' => 'datetime:Y-m-d H:i:s'
     ];
-
-    // protected $dates = [
-    //     'created_at',
-    //     'updated_at',
-    //     'last_update'
-    // ];
 }
