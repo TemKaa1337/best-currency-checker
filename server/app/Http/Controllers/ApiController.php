@@ -13,9 +13,9 @@ class ApiController extends Controller
     {
         // TODO: add validation for , and .
         try {
-            $request->validate();
+            $request->validateFields();
         } catch (ValidationException $e) {
-            return response($e->getMessage(), 200);
+            return response($e->getMessage(), 400);
         }
 
         $departmentService = new DepartmentService(

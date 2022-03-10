@@ -29,7 +29,7 @@ class ApiRequest extends FormRequest
         ];
     }
 
-    public function validate(): void
+    public function validateFields(): void
     {
         if ($this->request->location === null) {
             $error = 'Location field is emty';
