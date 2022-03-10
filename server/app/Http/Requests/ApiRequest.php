@@ -26,6 +26,7 @@ class ApiRequest extends FormRequest
      */
     public function rules()
     {
+        // TODO: add validation for , and .
         return [
             'location' => ['required'],
             'radius' => ['required']
