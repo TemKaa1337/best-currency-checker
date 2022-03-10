@@ -12,11 +12,11 @@ class ApiController extends Controller
     public function getNearestDepartments(ApiRequest $request): Response
     {
         // TODO: add validation for , and .
-        try {
-            $request->validateFields();
-        } catch (ValidationException $e) {
-            return response($e->getMessage(), 400);
-        }
+        // try {
+        //     $request->validateFields();
+        // } catch (ValidationException $e) {
+        //     return response($e->getMessage(), 400);
+        // }
 
         $departmentService = new DepartmentService(
             location: $request->location,
