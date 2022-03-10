@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,7 +17,7 @@ class App extends StatelessWidget {
         appBar: AppBar(
           title: const Text('test')
         ),
-        body: const CurrencyRates()
+        body: const Departments()
       )
     );
   }
@@ -44,7 +43,7 @@ class _DepartmentsState extends State<Departments> {
         departments.add(departmentInfo);
       }
     } else {
-
+      
     }
 
     return response;
@@ -53,7 +52,7 @@ class _DepartmentsState extends State<Departments> {
   @override
   Widget build (BuildContext context) {
     return const Scaffold(
-      
+
     );
   }
 }

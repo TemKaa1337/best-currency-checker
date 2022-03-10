@@ -205,7 +205,15 @@ class ParserCurrencyRates extends Command
     private function parseInnerPageWithRequest(string $url): array
     {
         sleep(1);
-        $response = Http::get($url);
+
+        while (True) {
+            $response = Http::get($url);
+            if ($response->status() === 200) break;
+
+            echo "Got status code: {$response->status()}, waiting 5 seconds...";
+            sleep(5);
+        }
+
         return $this->getDataFromInnerPage($response->body());
     }
 
