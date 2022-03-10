@@ -12,7 +12,7 @@ class BankCurrencyInfo extends Model
 {
     use HasFactory;
 
-    protected $dateFormat = 'Y-m-d H:i:s';
+    // protected $dateFormat = 'Y-m-d H:i:s';
 
     protected $casts = [
         'phones' => 'array',
