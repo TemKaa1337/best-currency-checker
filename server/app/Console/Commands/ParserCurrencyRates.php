@@ -193,10 +193,10 @@ class ParserCurrencyRates extends Command
         return [
             'name' => $name,
             'address' => $address,
-            'phones' => $phones,
+            'phones' => json_encode($phones),
             'working_time' => $workingTime,
             'website' => $website,
-            'coordinates' => array_map('trim', explode(',', $coordinates))
+            'coordinates' => json_encode(array_map('trim', explode(',', $coordinates)))
         ];
     }
 
