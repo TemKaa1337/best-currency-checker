@@ -4,7 +4,7 @@ namespace App\Services\Distance;
 
 use App\Services\Distance\Point;
 
-class DistanceService
+class DistanceCalculator
 {
     private const EARTH_RADIUS = 6371000;
 
@@ -17,7 +17,7 @@ class DistanceService
         $this->endPoint = $endPoint;
     }
 
-    public function getDistanceBetweenPointsInMeters(): float
+    public function getDistanceBetweenPointsInMeters(): int
     {
         $latStart = deg2rad($this->startPoint->getX());
         $lonStart = deg2rad($this->startPoint->getY());
@@ -29,7 +29,7 @@ class DistanceService
             pow(cos($latStart) * sin($latEnd) - sin($latStart) * cos($latEnd) * cos($lonDelta), 2);
         $b = sin($latStart) * sin($latEnd) + cos($latStart) * cos($latEnd) * cos($lonDelta);
 
-        return (float) (atan2(sqrt($a), $b) * self::EARTH_RADIUS);
+        return round(atan2(sqrt($a), $b) * self::EARTH_RADIUS);
     }
 }
 

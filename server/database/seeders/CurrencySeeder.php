@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\BankCurrencyInfo;
+use App\Models\Department;
 use Illuminate\Database\Seeder;
 
 class CurrencySeeder extends Seeder
@@ -200,11 +200,6 @@ class CurrencySeeder extends Seeder
                 ],
                 'bank_name' => 'Абсолютбанк'
             ]
-        ];
-
-        // foreach ($departments as $department) {
-        //     BankCurrencyInfo::create($department);
-        // }
-        $lastBanksJson = '';
+            ];
     }
 }

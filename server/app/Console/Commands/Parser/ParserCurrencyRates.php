@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Console\Command;
-use App\Models\BankCurrencyInfo;
+use App\Models\Department;
 use HeadlessChromium\{
     Browser\ProcessAwareBrowser,
     BrowserFactory
@@ -75,14 +75,14 @@ class ParserCurrencyRates extends Command
         foreach ($this->overallInfo as $department) {
 
             var_dump($department);
-            $currentDepartment = BankCurrencyInfo::where([
+            $currentDepartment = Department::where([
                 ['name', $department['name']],
                 ['coordinates', $department['coordinates']],
                 ['bank_name', $department['bank_name']]
             ])->get()->first();
 
             if ($currentDepartment === null) {
-                BankCurrencyInfo::insert($department);
+                Department::insert($department);
             } else {
                 $currentDepartment->fill($department);
                 $currentDepartment->save();

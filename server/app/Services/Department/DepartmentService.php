@@ -2,8 +2,8 @@
 
 namespace App\Services\Department;
 
-use App\Models\BankCurrencyInfo;
-use App\Services\Distance\{DistanceService, Point};
+use App\Models\Department;
+use App\Services\Distance\{DistanceCalculator, Point};
 
 class DepartmentService
 {
@@ -20,21 +20,20 @@ class DepartmentService
     {
         $userLocationPoint = new Point(explode(',', $this->location));
 
-        // TODO: unset distance
         // TODO: add is_working_now
-        $departmentInfo = BankCurrencyInfo::all()
-                                            ->map(function (BankCurrencyInfo $info) use ($userLocationPoint) : BankCurrencyInfo {
-                                                $departmentLocationPoint = new Point($info->coordinates);
-                                                $distanceService = new DistanceService(
+        $departmentInfo = Department::all()
+                                            ->map(function (Department $department) use ($userLocationPoint) : Department {
+                                                $departmentLocationPoint = new Point($department->coordinates);
+                                                $calculator = new DistanceCalculator(
                                                     startPoint: $userLocationPoint,
                                                     endPoint: $departmentLocationPoint
                                                 );
 
-                                                $info->distance = $distanceService->getDistanceBetweenPointsInMeters();
+                                                $department->distance = $calculator->getDistanceBetweenPointsInMeters();
 
-                                                return $info;
-                                            })->reject(fn (BankCurrencyInfo $info): bool => $info->distance > $this->radiusInMeters)
-                                            ->sortBy(fn (BankCurrencyInfo $info): float => $info->distance)
+                                                return $department;
+                                            })->reject(fn (Department $department): bool => $department->distance > $this->radiusInMeters)
+                                            ->sortBy(fn (Department $department): int => $department->distance)
                                             ->take(5)
                                             ->values()
                                             ->all();
