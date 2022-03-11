@@ -35,6 +35,7 @@ class DepartmentService
                                                 return $info;
                                             })->reject(fn (BankCurrencyInfo $info): bool => $info->distance > $this->radiusInMeters)
                                             ->sortBy(fn (BankCurrencyInfo $info): float => $info->distance)
+                                            ->take(5)
                                             ->values()
                                             ->all();
 
