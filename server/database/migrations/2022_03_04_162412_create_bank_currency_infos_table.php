@@ -20,7 +20,7 @@ return new class extends Migration
             $table->json('phones');
             $table->string('website');
             $table->string('working_time');
-            $table->json('coordinates')->unique();
+            $table->json('coordinates');
             $table->dateTime('last_update');
             $table->json('currency_info');
             $table->string('bank_name');
