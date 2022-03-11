@@ -116,13 +116,14 @@ class ParserCurrencyRates extends Command
                 $innerPageLink = 'https://myfin.by'.$departmentInfo[0]->find('a')[0]->href;
                 $address = $departmentInfo[0]->text();
 
-                $lastUpdate = trim($departmentInfo[1]->text());
+                $lastUpdate = $this->trimLastUpdate(trim($departmentInfo[1]->text()));
+                // $lastUpdate = trim($departmentInfo[1]->text());
 
-                if ($now >= date('Y-m-d').' '.$lastUpdate.':00') {
-                    $lastUpdate = date('Y-m-d').' '.$lastUpdate.':00';
-                } else {
-                    $lastUpdate = date('Y-m-d', strtotime('-1 day')).' '.$lastUpdate.':00';
-                }
+                // if ($now >= date('Y-m-d').' '.$lastUpdate.':00') {
+                //     $lastUpdate = date('Y-m-d').' '.$lastUpdate.':00';
+                // } else {
+                //     $lastUpdate = date('Y-m-d', strtotime('-1 day')).' '.$lastUpdate.':00';
+                // }
 
                 if ($this->type === 'request') {
                     $innerInfo = $this->parseInnerPageWithRequest($innerPageLink);
@@ -281,5 +282,20 @@ class ParserCurrencyRates extends Command
     private function splitPhones(string $phones): array
     {
         return array_map(fn (string $elem): string => trim($elem), preg_split('/(;|,)/', $phones));
+    }
+
+    private function trimLastUpdate(string $lastUpdate): string
+    {
+        $lastUpdate = trim($lastUpdate);
+
+        if (mb_strlen($lastUpdate) > 5) {
+            $lastUpdate = preg_replace('!\s+!', ' ', $lastUpdate);
+            $dateTimeInfo = explode(' ', $lastUpdate);
+            array_pop($dateTimeInfo);
+
+            $lastUpdate = implode(' ', [$dateTimeInfo[0], $dateTimeInfo[1]]);
+        }
+
+        return $lastUpdate;
     }
 }

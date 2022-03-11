@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('website');
             $table->string('working_time', 500);
             $table->jsonb('coordinates');
-            $table->dateTime('last_update');
+            $table->string('last_update');
             $table->jsonb('currency_info');
             $table->string('bank_name');
             $table->timestamps();
