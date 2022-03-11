@@ -73,6 +73,8 @@ class ParserCurrencyRates extends Command
         var_dump($this->overallInfo, json_encode($this->overallInfo));
 
         foreach ($this->overallInfo as $department) {
+
+            var_dump($department);
             $currentDepartment = BankCurrencyInfo::where([
                 ['name', $department['name']],
                 ['coordinates', $department['coordinates']],
@@ -104,7 +106,7 @@ class ParserCurrencyRates extends Command
             $bank = trim(str_replace('Отделения ', '', $department->find('thead')[0]->find('th')[0]->text()));
 
             $tbody = $department->find('tbody')[0];
-            $this->overallInfo[] = [];
+            $this->overallInfo = [];
             echo "bank {$bank}".PHP_EOL;
 
             $trs = $tbody->find('tr');
