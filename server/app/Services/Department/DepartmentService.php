@@ -7,18 +7,18 @@ use App\Services\Distance\{DistanceCalculator, Point};
 
 class DepartmentService
 {
-    private string $location;
+    private string $coordinates;
     private int $radiusInMeters;
 
-    public function __construct(string $location, int $radiusInMeters)
+    public function __construct(string $coordinates, int $radiusInMeters)
     {
-        $this->location = $location;
+        $this->coordinates = $coordinates;
         $this->radiusInMeters = $radiusInMeters;
     }
 
     public function getNearestDepartmentsWithBestRates(): array
     {
-        $userLocationPoint = new Point(explode(',', $this->location));
+        $userLocationPoint = new Point(explode(',', $this->coordinates));
 
         // TODO: add is_working_now
         $departmentInfo = Department::all()

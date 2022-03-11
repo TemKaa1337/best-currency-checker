@@ -11,7 +11,7 @@ class ApiController extends Controller
     public function getNearestDepartments(ApiRequest $request): Response
     {
         $departmentService = new DepartmentService(
-            location: $request->location,
+            coordinates: $request->location,
             radiusInMeters: $request->radius
         );
         $departments = $departmentService->getNearestDepartmentsWithBestRates();
