@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('address');
-            $table->json('phones');
+            $table->jsonb('phones');
             $table->string('website');
             $table->string('working_time');
-            $table->json('coordinates');
+            $table->jsonb('coordinates');
             $table->dateTime('last_update');
-            $table->json('currency_info');
+            $table->jsonb('currency_info');
             $table->string('bank_name');
             $table->timestamps();
         });
