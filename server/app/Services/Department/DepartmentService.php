@@ -22,21 +22,21 @@ class DepartmentService
 
         // TODO: add is_working_now
         $departmentInfo = Department::all()
-                                            ->map(function (Department $department) use ($userLocationPoint) : Department {
-                                                $departmentLocationPoint = new Point($department->coordinates);
-                                                $calculator = new DistanceCalculator(
-                                                    startPoint: $userLocationPoint,
-                                                    endPoint: $departmentLocationPoint
-                                                );
+            ->map(function (Department $department) use ($userLocationPoint) : Department {
+                $departmentLocationPoint = new Point($department->coordinates);
+                $calculator = new DistanceCalculator(
+                    startPoint: $userLocationPoint,
+                    endPoint: $departmentLocationPoint
+                );
 
-                                                $department->distance = $calculator->getDistanceBetweenPointsInMeters();
+                $department->distance = $calculator->getDistanceBetweenPointsInMeters();
 
-                                                return $department;
-                                            })->reject(fn (Department $department): bool => $department->distance > $this->radiusInMeters)
-                                            ->sortBy(fn (Department $department): int => $department->distance)
-                                            ->take(5)
-                                            ->values()
-                                            ->all();
+                return $department;
+            })->reject(fn (Department $department): bool => $department->distance > $this->radiusInMeters)
+            ->sortBy(fn (Department $department): int => $department->distance)
+            ->take(5)
+            ->values()
+            ->all();
 
         return $departmentInfo;
     }
