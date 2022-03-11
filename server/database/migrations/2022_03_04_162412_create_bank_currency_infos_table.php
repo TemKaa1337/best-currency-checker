@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('address');
             $table->jsonb('phones');
             $table->string('website');
-            $table->string('working_time');
+            $table->string('working_time', 500);
             $table->jsonb('coordinates');
             $table->dateTime('last_update');
             $table->jsonb('currency_info');
