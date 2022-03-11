@@ -7,8 +7,7 @@ use Illuminate\Console\Command;
 use App\Models\BankCurrencyInfo;
 use HeadlessChromium\{
     Browser\ProcessAwareBrowser,
-    BrowserFactory,
-    Page
+    BrowserFactory
 };
 use DiDom\Document;
 
@@ -64,8 +63,6 @@ class ParserCurrencyRates extends Command
             } else {
                 $this->parseMainPageWithBrowser();
             }
-
-            // $this->update();
         }
 
         return 0;
@@ -75,13 +72,23 @@ class ParserCurrencyRates extends Command
     {
         var_dump($this->overallInfo, json_encode($this->overallInfo));
 
-        foreach ($this->overallInfo as $bankName => $departments) {
-            BankCurrencyInfo::upsert(
-                $departments,
-                ['coordinates'],
-                ['name', 'address', 'phones', 'website', 'working_time', 'coordinates', 'last_update', 'currency_info', 'bank_name']
-            );
+        foreach ($this->overallInfo as $department) {
+            $currentDepartment = BankCurrencyInfo::where([
+                ['name', $department['name']],
+                ['coordinates', $department['coordinates']],
+                ['bank_name', $department['bank_name']]
+            ])->get()->first();
+
+            if ($currentDepartment === null) {
+                BankCurrencyInfo::insert($department);
+            } else {
+                $currentDepartment->fill($department);
+                $currentDepartment->save();
+            }
         }
+
+        echo 'updated successfully.'.PHP_EOL;
+        die();
     }
 
     private function getDataFromMainPage(string $html): void
@@ -97,7 +104,7 @@ class ParserCurrencyRates extends Command
             $bank = trim(str_replace('Отделения ', '', $department->find('thead')[0]->find('th')[0]->text()));
 
             $tbody = $department->find('tbody')[0];
-            $this->overallInfo[$bank] = [];
+            $this->overallInfo[] = [];
             echo "bank {$bank}".PHP_EOL;
 
             $trs = $tbody->find('tr');
@@ -127,7 +134,7 @@ class ParserCurrencyRates extends Command
                 $bankBuysEur = $tds[3]->text();
                 $bankSellsEur = $tds[4]->text();
 
-                $this->overallInfo[$bank][] = array_merge($innerInfo, [
+                $this->overallInfo[] = array_merge($innerInfo, [
                     'last_update' => $lastUpdate,
                     'currency_info' => json_encode([
                         'usd' => [
@@ -152,20 +159,14 @@ class ParserCurrencyRates extends Command
             }
 
             $this->update();
-            $this->overallInfo = [];
-            // die();
         }
     }
 
     private function getDataFromInnerPage(string $html): array
     {
         $document = new Document($html);
+        $info = $document->find('.table-responsive')[0]->find('table')[0];
 
-        try {
-            $info = $document->find('.table-responsive')[0]->find('table')[0];
-        } catch (\Exception $e) {
-            dd($document->html());
-        }
         $fields = $info->find('tr');
 
         $name = $fields[0]->find('td')[1]->text();
