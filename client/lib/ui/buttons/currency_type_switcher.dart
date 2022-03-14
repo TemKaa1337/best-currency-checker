@@ -12,7 +12,9 @@ class _CurrencyTypeSwitcherState extends State<CurrencyTypeSwitcher> {
 
   @override
   Widget build (BuildContext context) {
-    return ToggleButtons(
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: ToggleButtons(
         children: const [
           Text('USD'),
           Text('EUR')
@@ -26,10 +28,11 @@ class _CurrencyTypeSwitcherState extends State<CurrencyTypeSwitcher> {
           });
         },
         isSelected: _selections,
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
         borderWidth: 2,
         borderColor: Colors.white,
         selectedColor: Colors.black
+      )
     );
   }
 }
