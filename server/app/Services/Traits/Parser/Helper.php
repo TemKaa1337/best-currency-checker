@@ -37,7 +37,7 @@ trait Helper
             ])->get()->first();
 
             if ($currentDepartment === null) {
-                Department::insert($department);
+                Department::create($department);
             } else {
                 $currentDepartment->fill($department);
                 $currentDepartment->save();
