@@ -37,7 +37,7 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             Logging::error(
-                classname: $this->type === 'request' ? RequestParser::class : BrowserParser::class,
+                classname: $e::class,
                 info: [
                     'message' => $e->getMessage(),
                     'file' => $e->getFile(),
