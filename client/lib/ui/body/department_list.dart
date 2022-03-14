@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:client/services/data/department.dart';
 
 class DepartmentList extends StatefulWidget {
-  // final List<Department> departments;
-  // final String error;
+  final Department department;
 
-  const DepartmentList({Key? key}) : super(key: key);
+  const DepartmentList({Key? key, required this.department}) : super(key: key);
 
   @override
   _DepartmentListState createState() => _DepartmentListState();
@@ -14,34 +13,31 @@ class DepartmentList extends StatefulWidget {
 class _DepartmentListState extends State<DepartmentList> {
   @override
   Widget build (BuildContext context) {
-    List<Department> departments = [
-      Department(1, 'name1', 'address1', 'website1'),
-      Department(2, 'name2', 'address2', 'website2'),
-      Department(3, 'name3', 'address3', 'website3'),
-      Department(4, 'name4', 'address4', 'website4'),
-      Department(5, 'name5', 'address6', 'website6'),
-    ];
-
-    return Scaffold(
-      body: ListView.builder(
-        itemCount: departments.length,
-        itemBuilder: (context, index) {
-          return ExpansionTile(
-            title: Text(departments[index].name),
-            key: PageStorageKey<int>(departments[index].id),
-            children: [
-              ListTile(
-                title: Text(departments[index].name + ' asd1'),
-                subtitle: Text(departments[index].address)
-              ),
-              ListTile(
-                title: Text(departments[index].name + ' asd2'),
-                subtitle: Text(departments[index].address)
-              ),
-            ],
-          );
-        }
+    return ExpansionTile(
+      title: Row(
+        children: [
+          Text(widget.department.departmentName),
+          Padding(
+            padding: const EdgeInsets.all(3),
+            child: Text(
+              'Курс: ${widget.department.currencyRates['usd']!['bank_buys']!}',
+              style: const TextStyle(color: Colors.blue),
+            ),
+          )
+        ],
       ),
+      subtitle: Text(widget.department.address + ' (в ${widget.department.distance.toString()} метрах от вас)'),
+      key: PageStorageKey<int>(widget.department.id),
+      children: [
+        ListTile(
+          title: Text(widget.department.website),
+          subtitle: Text(widget.department.phones.join('\n'))
+        ),
+        ListTile(
+            title: Text(widget.department.workingTime),
+            subtitle: Text('Последнее обновление курса: ' + widget.department.lastUpdate)
+        )
+      ],
     );
   }
 }

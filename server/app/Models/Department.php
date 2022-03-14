@@ -10,6 +10,7 @@ class Department extends Model
     use HasFactory;
 
     protected $fillable = ['*'];
+    protected $guarded = [];
 
     protected $casts = [
         'phones' => 'array',
