@@ -2,7 +2,8 @@
 
 namespace App\Services\Traits\Parser;
 
-use App\Models\Department;
+use App\Console\Commands\Parser\{RequestParser, BrowserParser};
+use App\Models\{Department, Logging};
 
 trait Helper
 {
@@ -42,6 +43,11 @@ trait Helper
                 $currentDepartment->save();
             }
         }
+
+        Logging::info(
+            classname: $this->type === 'request' ? RequestParser::class : BrowserParser::class,
+            success: !empty($update)
+        );
 
         echo 'updated successfully.'.PHP_EOL;
     }

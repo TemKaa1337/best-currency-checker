@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use App\Models\Logging;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -34,8 +35,17 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->reportable(function (Throwable $e, $request) {
+            Logging::error(
+                classname: $this->type === 'request' ? RequestParser::class : BrowserParser::class,
+                info: [
+                    'message' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                    'trace' => $e->getTrace(),
+                    'request' => $request?->all()
+                ]
+            );
         });
     }
 }

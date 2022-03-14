@@ -2,6 +2,7 @@
 
 namespace App\Services\Traits\Parser;
 
+use App\Models\Logging;
 use App\Services\Traits\Parser\Helper;
 use DiDom\Document;
 
@@ -11,12 +12,12 @@ trait Page
 
     protected function getDataFromMainPage(string $html): void
     {
-        var_dump($html);
         $document = new Document($html);
 
         $departments = $document->find('table');
         array_shift($departments);
         array_shift($departments);
+        $updates = [];
 
         foreach ($departments as $department) {
             $bank = trim(str_replace('Отделения ', '', $department->find('thead')[0]->find('th')[0]->text()));
@@ -61,6 +62,7 @@ trait Page
                     'bank_name' => $bank
                 ]);
 
+                $updates[] = $update;
                 echo "department with address {$address}".PHP_EOL;
                 echo "last update {$lastUpdate}".PHP_EOL;
                 echo "inner page link {$innerPageLink}".PHP_EOL;
@@ -71,6 +73,13 @@ trait Page
             }
 
             $this->update($update);
+        }
+
+        if (empty($updates)) {
+            Logging::info(
+                classname: $this->type === 'request' ? RequestParser::class : BrowserParser::class,
+                success: false
+            );
         }
     }
 

@@ -5,7 +5,6 @@ namespace App\Console\Commands\Parser;
 use HeadlessChromium\BrowserFactory;
 use App\Services\Traits\Parser\Page;
 use Illuminate\Console\Command;
-use DiDom\Document;
 
 class BrowserParser extends Command
 {
