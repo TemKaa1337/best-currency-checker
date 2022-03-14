@@ -10,6 +10,7 @@ class Logging extends Model
     use HasFactory;
 
     protected $fillable = ['*'];
+    protected $guarded = [];
 
     public static function info(
         string $classname,
