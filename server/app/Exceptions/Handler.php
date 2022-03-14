@@ -35,15 +35,14 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e, $request) {
+        $this->reportable(function (Throwable $e) {
             Logging::error(
                 classname: $this->type === 'request' ? RequestParser::class : BrowserParser::class,
                 info: [
                     'message' => $e->getMessage(),
                     'file' => $e->getFile(),
                     'line' => $e->getLine(),
-                    'trace' => $e->getTrace(),
-                    'request' => $request?->all()
+                    'trace' => $e->getTrace()
                 ]
             );
         });
