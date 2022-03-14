@@ -11,6 +11,7 @@ trait Page
 
     protected function getDataFromMainPage(string $html): void
     {
+        var_dump($html);
         $document = new Document($html);
 
         $departments = $document->find('table');

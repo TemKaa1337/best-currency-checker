@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('loggings', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->string('classname'); // class of class to be logged
+            $table->text('message'); // message of logger caller (success or if it was unsuccessful than message of error)
             $table->json('info');
             $table->timestamps();
         });

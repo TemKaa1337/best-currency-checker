@@ -29,7 +29,6 @@ trait Helper
     protected function update(array $update): void
     {
         foreach ($update as $department) {
-            var_dump($department);
             $currentDepartment = Department::where([
                 ['name', $department['name']],
                 ['coordinates', $department['coordinates']],

@@ -66,19 +66,21 @@ class _HomeState extends State<Home> {
           )
         ],
       ),
-      body: [DepartmentState.loading, DepartmentState.error].contains(_requestState)
-          ? AlertDialog(
-            title: const Text('title'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  // Navigator.pop(context);
-                },
-                child: const Text('OK')
-              )
-            ],
-            content: const Text('content')
-          ) : const DepartmentList(),
+      body:
+          // [DepartmentState.loading, DepartmentState.error].contains(_requestState)
+          // ? AlertDialog(
+          //   title: const Text('title'),
+          //   actions: [
+          //     TextButton(
+          //       onPressed: () {
+          //         // Navigator.pop(context);
+          //       },
+          //       child: const Text('OK')
+          //     )
+          //   ],
+          //   content: const Text('content')
+          // ) :
+          const DepartmentList(),
       floatingActionButton: FloatingActionButton.extended(
         label: const Icon(IconData(0xf2f7, fontFamily: 'MaterialIcons')),
         backgroundColor: Colors.blue,
