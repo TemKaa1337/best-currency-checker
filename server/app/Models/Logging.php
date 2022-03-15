@@ -15,7 +15,6 @@ class Logging extends Model
         'success',
         'info',
     ];
-    protected $guarded = [];
 
     public static function info(
         string $classname,
