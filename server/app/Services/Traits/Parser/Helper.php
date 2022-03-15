@@ -32,7 +32,7 @@ trait Helper
         foreach ($update as $department) {
             $currentDepartment = Department::where([
                 ['name', $department['name']],
-                ['coordinates', $department['coordinates']],
+                ['coordinates', json_encode($department['coordinates'])],
                 ['bank_name', $department['bank_name']]
             ])->get()->first();
 
