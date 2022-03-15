@@ -22,7 +22,7 @@ class Logging extends Model
         bool $success
     ): void
     {
-        self::insert([
+        self::create([
             'classname' => $classname,
             'type' => 'info',
             'success' => $success
@@ -34,7 +34,7 @@ class Logging extends Model
         array $info
     ): void
     {
-        self::insert([
+        self::create([
             'classname' => $classname,
             'type' => 'error',
             'success' => false,
