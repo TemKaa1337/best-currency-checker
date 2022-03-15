@@ -49,7 +49,7 @@ trait Page
 
                 $update[] = array_merge($innerInfo, [
                     'last_update' => $lastUpdate,
-                    'currency_info' => json_encode([
+                    'currency_info' => [
                         'usd' => [
                             'bank_buys' => $bankBuysUsd,
                             'bank_sells' => $bankSellsUsd
@@ -58,7 +58,7 @@ trait Page
                             'bank_buys' => $bankBuysEur,
                             'bank_sells' => $bankSellsEur
                         ]
-                    ]),
+                    ],
                     'bank_name' => $bank
                 ]);
 
@@ -112,10 +112,10 @@ trait Page
         return [
             'name' => $name,
             'address' => $address,
-            'phones' => json_encode($phones),
+            'phones' => $phones,
             'working_time' => $workingTime,
             'website' => $website,
-            'coordinates' => json_encode(array_map('trim', explode(',', $coordinates)))
+            'coordinates' => array_map('trim', explode(',', $coordinates))
         ];
     }
 
