@@ -9,7 +9,12 @@ class Logging extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['*'];
+    protected $fillable = [
+        'classname',
+        'type',
+        'success',
+        'info',
+    ];
     protected $guarded = [];
 
     public static function info(
