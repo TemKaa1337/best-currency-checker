@@ -1,38 +1,58 @@
 import 'package:flutter/material.dart';
 
 class CurrencyTypeSwitcher extends StatefulWidget {
-  const CurrencyTypeSwitcher({Key? key}) : super(key: key);
+  final Function(String) notifyParent;
+
+  const CurrencyTypeSwitcher({Key? key, required final Function(String) this.notifyParent}) : super(key: key);
 
   @override
   _CurrencyTypeSwitcherState createState() => _CurrencyTypeSwitcherState();
 }
 
 class _CurrencyTypeSwitcherState extends State<CurrencyTypeSwitcher> {
-  final List<bool> _selections = List.generate(2, (index) => index == 0 ? true : false);
+  final List<bool> _currencySelections = List.generate(2, (index) => index == 0 ? true : false);
+  final List<String> _currencies = ['USD', 'EUR'];
+
+  int _currencyEnabled = 0;
+
+  void notifyParent() {
+    widget.notifyParent(_currencies[_currencyEnabled]);
+  }
 
   @override
   Widget build (BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: ToggleButtons(
-        children: const [
-          Text('USD'),
-          Text('EUR')
-        ],
-        onPressed: (int index) {
-          setState(() {
-            int otherIndex = index == 0 ? index + 1 : index - 1;
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(10),
+            child: Text('Choose currency:'),
+          ),
+          Padding(
+              padding: const EdgeInsets.all(5),
+              child: ToggleButtons(
+                  children: _currencies.map((String element) => Text(element)).toList(),
+                  onPressed: (int index) {
+                    setState(() {
+                      int otherIndex = index == 0 ? index + 1 : index - 1;
 
-            _selections[otherIndex] = !_selections[otherIndex];
-            _selections[index] = !_selections[index];
-          });
-        },
-        isSelected: _selections,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        borderWidth: 2,
-        borderColor: Colors.white,
-        selectedColor: Colors.black
-      )
+                      if (_currencySelections[index] == false) {
+                        _currencySelections[otherIndex] = !_currencySelections[otherIndex];
+                        _currencyEnabled = index;
+                        _currencySelections[index] = !_currencySelections[index];
+                      }
+                    });
+
+                    notifyParent();
+                  },
+                  isSelected: _currencySelections,
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  borderWidth: 2,
+                  borderColor: Colors.white,
+                  selectedColor: Colors.black
+              )
+          ),
+        ]
     );
   }
 }

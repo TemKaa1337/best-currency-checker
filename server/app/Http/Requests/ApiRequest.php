@@ -29,7 +29,8 @@ class ApiRequest extends FormRequest
         // TODO: add validation for , and .
         return [
             'location' => ['required'],
-            'radius' => ['required']
+            'radius' => ['required'],
+            'limit' => ['required']
         ];
     }
 
@@ -37,7 +38,8 @@ class ApiRequest extends FormRequest
     {
         return [
             'location.required' => 'Location attribute is missing.',
-            'radius.required' => 'Radius attribute is missing.'
+            'radius.required' => 'Radius attribute is missing.',
+            'limit' => 'Limit attribute is missing.'
         ];
     }
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:client/services/data/department.dart';
+import 'package:client/ui/body/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:client/ui/buttons/currency_type_switcher.dart';
 import 'package:client/ui/buttons/currency_operation_switcher.dart';
@@ -19,10 +20,16 @@ class _HomeState extends State<Home> {
   late String _errorMessage;
   List<Department> _departments = [];
 
+  String _currency = 'USD';
+  String _operation = 'Buy';
+  int _radius = 500;
+  int _departmentNumber = 5;
+
   Future getNearestDepartments() async {
     final Map<String, dynamic> params = {
       'location': '53.901780,27.551184',
-      'radius': 5000
+      'radius': _radius,
+      'limit': _departmentNumber
     };
     
     http.Response response = await http.post(
@@ -40,7 +47,7 @@ class _HomeState extends State<Home> {
 
       setState(() {
         _errorMessage = '';
-        print(body);
+        // print(body);
         _departments = body.map((dynamic element) => Department.fromJson(element)).toList();
         _requestState = DepartmentState.success;
       });
@@ -62,38 +69,70 @@ class _HomeState extends State<Home> {
     getNearestDepartments();
   }
 
+  void refresh(String currency, String operation, int radius, int departmentNumber) {
+    _currency = currency;
+    _operation = operation;
+    _radius = radius;
+    _departmentNumber = departmentNumber;
+
+    getNearestDepartments();
+  }
+
   @override
   Widget build(BuildContext context) {
     print('state is');
     print(_requestState);
+    print('currency');
+    print(_currency);
+    print('operation');
+    print(_operation);
+    print('radius');
+    print(_radius);
+    print('department numbers');
+    print(_departmentNumber);
 
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 140,
-        leading: Row(
-          children: const [
-            CurrencyTypeSwitcher()
-          ]
-        ),
-        actions: <Widget> [
-          Builder(
-            builder: (context) {
-              return const CurrencyOperationSwitcher();
-            },
-          )
-        ],
+        // leadingWidth: 140,
+        // leading: Row(
+        //   children: const [
+        //     CurrencyTypeSwitcher()
+        //   ]
+        // ),
+        // actions: <Widget> [
+        //   Builder(
+        //     builder: (context) {
+        //       return const CurrencyOperationSwitcher();
+        //     },
+        //   )
+        // ],
       ),
       body: Scaffold(
-        body: [DepartmentState.loading, DepartmentState.error].contains(_requestState)
-          ? const Text('Not loaded yeat')
-          : ListView.builder(
-            itemCount: _departments.length,
-            itemBuilder: (context, index) {
-              return DepartmentList(
-                department: _departments[index],
-              );
-            }
-          )
+        body: ListView (
+          children: [
+              Settings(refresh: refresh),
+              [DepartmentState.loading, DepartmentState.error].contains(_requestState)
+              ? ExpansionTile(
+                  title: Text('Departments (loading...)'),
+                  children: [],
+              )
+              : ExpansionTile(
+                title: Text('Departments'),
+                children: [
+                  ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: _departments.length,
+                      itemBuilder: (context, index) {
+                        return DepartmentList(
+                          department: _departments[index],
+                        );
+                      }
+                  )
+                ],
+              )
+          ],
+        )
       ),
       floatingActionButton: FloatingActionButton.extended(
         label: const Icon(IconData(0xf2f7, fontFamily: 'MaterialIcons')),

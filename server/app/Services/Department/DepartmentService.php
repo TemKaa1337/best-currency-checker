@@ -9,11 +9,13 @@ class DepartmentService
 {
     private string $coordinates;
     private int $radiusInMeters;
+    private int $limit;
 
-    public function __construct(string $coordinates, int $radiusInMeters)
+    public function __construct(string $coordinates, int $radiusInMeters, int $limit)
     {
         $this->coordinates = $coordinates;
         $this->radiusInMeters = $radiusInMeters;
+        $this->limit = $limit;
     }
 
     public function getNearestDepartmentsWithBestRates(): array
@@ -34,7 +36,7 @@ class DepartmentService
                 return $department;
             })->reject(fn (Department $department): bool => $department->distance > $this->radiusInMeters)
             ->sortBy(fn (Department $department): int => $department->distance)
-            ->take(5)
+            ->take($this->limit)
             ->values()
             ->all();
 
