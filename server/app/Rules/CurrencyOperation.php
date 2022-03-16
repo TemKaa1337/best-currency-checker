@@ -25,7 +25,7 @@ class CurrencyOperation implements Rule
      */
     public function passes($attribute, $value)
     {
-        return in_array($value, ['Buy', 'Sell']);
+        return in_array($value, ['buy', 'sell']);
     }
 
     /**
@@ -35,6 +35,6 @@ class CurrencyOperation implements Rule
      */
     public function message()
     {
-        return 'The operationType parameter can be Buy or Sell.';
+        return "The operationType parameter can be 'buy' or 'sell'.";
     }
 }

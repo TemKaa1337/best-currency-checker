@@ -25,7 +25,7 @@ class CurrencyName implements Rule
      */
     public function passes($attribute, $value)
     {
-        return in_array($value, ['USD', 'EUR']);
+        return in_array($value, ['usd', 'eur']);
     }
 
     /**
@@ -35,6 +35,6 @@ class CurrencyName implements Rule
      */
     public function message()
     {
-        return 'The currency parameter can be USD or EUR.';
+        return "The currency parameter can be 'usd' or 'eur'.";
     }
 }
