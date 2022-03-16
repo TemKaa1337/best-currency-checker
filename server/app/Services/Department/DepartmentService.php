@@ -50,6 +50,8 @@ class DepartmentService
             ->values()
             ->all();
 
+        $a = $b;
+
         return $departmentInfo;
     }
 }
