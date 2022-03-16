@@ -34,7 +34,7 @@ class DepartmentService
 
         // TODO: add is_working_now
         $departments = Department::all();
-        $departments->map(function (Department $department) use ($userLocationPoint) : Department {
+        $departments = $departments->map(function (Department $department) use ($userLocationPoint) : Department {
                 $departmentLocationPoint = new Point($department->coordinates);
                 $calculator = new DistanceCalculator(
                     startPoint: $userLocationPoint,
