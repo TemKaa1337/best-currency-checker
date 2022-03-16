@@ -60,8 +60,7 @@ class DepartmentService
         }
 
         return $departments->take($this->limit)
-                            ->values()
-                            ->all();
+                            ->values();
     }
 }
 
