@@ -6,6 +6,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\{CurrencyName, CurrencyOperation, GpsFormat};
 
 class ApiRequest extends FormRequest
 {
@@ -28,11 +29,11 @@ class ApiRequest extends FormRequest
     {
         // TODO: add validation for , and .
         return [
-            'location' => ['required'],
-            'radius' => ['required'],
-            'limit' => ['required'],
-            'currency' => ['currency'],
-            'operationType' => ['operationType'],
+            'location' => ['required', 'string', new GpsFormat],
+            'radius' => ['required', 'integer', 'numeric'],
+            'limit' => ['required', 'integer', 'numeric'],
+            'currency' => ['currency', 'string', new CurrencyName],
+            'operationType' => ['operationType', 'string', new CurrencyOperation],
         ];
     }
 
@@ -41,9 +42,14 @@ class ApiRequest extends FormRequest
         return [
             'location.required' => 'Location attribute is missing.',
             'radius.required' => 'Radius attribute is missing.',
-            'limit' => 'Limit attribute is missing.',
-            'currency' => 'Currency attribute is missing.',
-            'operationType' => 'operationType attribute is missing.'
+            'limit.required' => 'Limit attribute is missing.',
+            'currency.required' => 'Currency attribute is missing.',
+            'operationType.required' => 'operationType attribute is missing.',
+            'location.string' => 'Location attribute must be string.',
+            'currency.string' => 'Currency attribute must be string.',
+            'operationType.string' => 'operationType must be string.',
+            'radius.integer' => 'Radius attribute must be integer.',
+            'limit.integer' => 'Limit attribute must be integer.'
         ];
     }
 
