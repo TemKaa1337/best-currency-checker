@@ -48,12 +48,12 @@ class DepartmentService
 
         if ($this->operationType === 'bank_buys') {
             // best curreency if client wants to sell usd/eur
-            $departments->sortByDesc(callback: function (Department $department): float {
+            $departments = $departments->sortByDesc(callback: function (Department $department): float {
                 return $department->currency_info[$this->currency][$this->operationType];
             }, options: SORT_NUMERIC);
         } else {
             // best curreency if client wants to buy uxsd/eur
-            $departments->sortBy(callback: function (Department $department): float {
+            $departments = $departments->sortBy(callback: function (Department $department): float {
                 return $department->currency_info[$this->currency][$this->operationType];
             }, options: SORT_NUMERIC);
         }
