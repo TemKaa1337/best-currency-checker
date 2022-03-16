@@ -32,8 +32,8 @@ class ApiRequest extends FormRequest
             'location' => ['required', 'string', new GpsFormat],
             'radius' => ['required', 'integer', 'numeric'],
             'limit' => ['required', 'integer', 'numeric'],
-            'currency' => ['currency', 'string', new CurrencyName],
-            'operationType' => ['operationType', 'string', new CurrencyOperation],
+            'currency' => ['required', 'string', new CurrencyName],
+            'operationType' => ['required', 'string', new CurrencyOperation],
         ];
     }
 
