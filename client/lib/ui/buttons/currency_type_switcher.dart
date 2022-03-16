@@ -28,29 +28,34 @@ class _CurrencyTypeSwitcherState extends State<CurrencyTypeSwitcher> {
             padding: EdgeInsets.all(10),
             child: Text('Choose currency:'),
           ),
+          const Spacer(),
           Padding(
-              padding: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
+            child: Container(
+              height: 40,
               child: ToggleButtons(
-                  children: _currencies.map((String element) => Text(element)).toList(),
-                  onPressed: (int index) {
-                    setState(() {
-                      int otherIndex = index == 0 ? index + 1 : index - 1;
+                children: _currencies.map((String element) => Text(element)).toList(),
+                onPressed: (int index) {
+                  setState(() {
+                    int otherIndex = index == 0 ? index + 1 : index - 1;
 
-                      if (_currencySelections[index] == false) {
-                        _currencySelections[otherIndex] = !_currencySelections[otherIndex];
-                        _currencyEnabled = index;
-                        _currencySelections[index] = !_currencySelections[index];
-                      }
-                    });
+                    if (_currencySelections[index] == false) {
+                      _currencySelections[otherIndex] = !_currencySelections[otherIndex];
+                      _currencyEnabled = index;
+                      _currencySelections[index] = !_currencySelections[index];
+                    }
+                  });
 
-                    notifyParent();
-                  },
-                  isSelected: _currencySelections,
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  borderWidth: 2,
-                  borderColor: Colors.white,
-                  selectedColor: Colors.black
+                  notifyParent();
+                },
+                isSelected: _currencySelections,
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                borderWidth: 1,
+                selectedColor: Colors.black,
+                fillColor: Colors.blue,
+                color: Colors.black,
               )
+            )
           ),
         ]
     );

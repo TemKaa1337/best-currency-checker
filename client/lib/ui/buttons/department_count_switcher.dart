@@ -27,9 +27,12 @@ class _DepartmentCountSwitcherState extends State<DepartmentCountSwitcher> {
             padding: EdgeInsets.all(10),
             child: Text('Number of departments?')
         ),
+        Spacer(),
         Padding(
           padding: const EdgeInsets.all(10),
-          child: ToggleButtons(
+          child: Container(
+            height: 40,
+            child: ToggleButtons(
               children: _departmentsNumber.map((int element) => Text((element).toString())).toList(),
               onPressed: (int index) {
                 setState(() {
@@ -50,11 +53,13 @@ class _DepartmentCountSwitcherState extends State<DepartmentCountSwitcher> {
                 notifyParent();
               },
               isSelected: _departmentSelections,
-              borderRadius: BorderRadius.circular(10),
-              borderWidth: 2,
-              borderColor: Colors.white,
-              selectedColor: Colors.black
-          ),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              borderWidth: 1,
+              selectedColor: Colors.black,
+              fillColor: Colors.blue,
+              color: Colors.black,
+            ),
+          )
         )
       ],
     );

@@ -27,29 +27,34 @@ class _CurrencyOperationSwitcherState extends State<CurrencyOperationSwitcher> {
           padding: EdgeInsets.all(10),
           child: Text('What action to perform?'),
         ),
+        Spacer(),
         Padding(
-            padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
+          child: Container(
+            height: 40,
             child: ToggleButtons(
-                children: _operations.map((String element) => Text(element)).toList(),
-                onPressed: (int index) {
-                  setState(() {
-                    int otherIndex = index == 0 ? index + 1 : index - 1;
+              children: _operations.map((String element) => Text(element)).toList(),
+              onPressed: (int index) {
+                setState(() {
+                  int otherIndex = index == 0 ? index + 1 : index - 1;
 
-                    if (_operationTypeSelections[index] == false) {
-                      _operationTypeSelections[otherIndex] = !_operationTypeSelections[otherIndex];
-                      _operationEnabled = index;
-                      _operationTypeSelections[index] = !_operationTypeSelections[index];
-                    }
-                  });
+                  if (_operationTypeSelections[index] == false) {
+                    _operationTypeSelections[otherIndex] = !_operationTypeSelections[otherIndex];
+                    _operationEnabled = index;
+                    _operationTypeSelections[index] = !_operationTypeSelections[index];
+                  }
+                });
 
-                  notifyParent();
-                },
-                isSelected: _operationTypeSelections,
-                borderRadius: BorderRadius.circular(10),
-                borderWidth: 2,
-                borderColor: Colors.white,
-                selectedColor: Colors.black
+                notifyParent();
+              },
+              isSelected: _operationTypeSelections,
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              borderWidth: 1,
+              selectedColor: Colors.black,
+              fillColor: Colors.blue,
+              color: Colors.black,
             )
+          )
         )
       ],
     );

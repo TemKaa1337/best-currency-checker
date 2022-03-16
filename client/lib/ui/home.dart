@@ -1,12 +1,11 @@
-import 'dart:convert';
+import 'package:client/services/enums/department_state.dart';
+import 'package:client/ui/app_bar/app_bar.dart';
+import 'package:client/ui/body/department_list.dart';
 import 'package:client/services/data/department.dart';
 import 'package:client/ui/body/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:client/ui/buttons/currency_type_switcher.dart';
-import 'package:client/ui/buttons/currency_operation_switcher.dart';
-import 'package:client/ui/body/department_list.dart';
-import 'package:client/services/enums/department_state.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -15,7 +14,7 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   DepartmentState _requestState = DepartmentState.loading;
   late String _errorMessage;
   List<Department> _departments = [];
@@ -91,55 +90,28 @@ class _HomeState extends State<Home> {
     print('department numbers');
     print(_departmentNumber);
 
-    return Scaffold(
-      appBar: AppBar(
-        // leadingWidth: 140,
-        // leading: Row(
-        //   children: const [
-        //     CurrencyTypeSwitcher()
-        //   ]
-        // ),
-        // actions: <Widget> [
-        //   Builder(
-        //     builder: (context) {
-        //       return const CurrencyOperationSwitcher();
-        //     },
-        //   )
-        // ],
-      ),
-      body: Scaffold(
-        body: ListView (
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: DepartmentsAppBar(),
+        body: TabBarView(
+          physics: const BouncingScrollPhysics(),
           children: [
-              Settings(refresh: refresh),
-              [DepartmentState.loading, DepartmentState.error].contains(_requestState)
-              ? ExpansionTile(
-                  title: Text('Departments (loading...)'),
-                  children: [],
-              )
-              : ExpansionTile(
-                title: Text('Departments'),
-                children: [
-                  ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: _departments.length,
-                      itemBuilder: (context, index) {
-                        return DepartmentList(
-                          department: _departments[index],
-                        );
-                      }
-                  )
-                ],
-              )
+            [DepartmentState.loading, DepartmentState.error].contains(_requestState)
+              ? const CircularProgressIndicator()
+              : ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: _departments.length,
+                  itemBuilder: (context, index) {
+                    return DepartmentList(
+                      department: _departments[index],
+                    );
+                  }
+                ),
+            Settings(refresh: refresh)
           ],
-        )
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        label: const Icon(IconData(0xf2f7, fontFamily: 'MaterialIcons')),
-        backgroundColor: Colors.blue,
-        onPressed: () {
-
-        },
+        ),
       ),
     );
   }

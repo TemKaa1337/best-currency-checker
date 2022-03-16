@@ -10,7 +10,10 @@ class DepartmentList extends StatefulWidget {
   _DepartmentListState createState() => _DepartmentListState();
 }
 
-class _DepartmentListState extends State<DepartmentList> {
+class _DepartmentListState extends State<DepartmentList> with AutomaticKeepAliveClientMixin<DepartmentList> {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build (BuildContext context) {
     return ExpansionTile(
