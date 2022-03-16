@@ -3,8 +3,15 @@ import 'package:client/services/data/department.dart';
 
 class DepartmentList extends StatefulWidget {
   final Department department;
+  final String currency;
+  final String operationType;
 
-  const DepartmentList({Key? key, required this.department}) : super(key: key);
+  const DepartmentList({
+    Key? key,
+    required Department this.department,
+    required String this.currency,
+    required String this.operationType
+  }) : super(key: key);
 
   @override
   _DepartmentListState createState() => _DepartmentListState();
@@ -19,11 +26,11 @@ class _DepartmentListState extends State<DepartmentList> with AutomaticKeepAlive
     return ExpansionTile(
       title: Row(
         children: [
-          Text(widget.department.departmentName),
+          Text(widget.department.bankName),
           Padding(
             padding: const EdgeInsets.all(3),
             child: Text(
-              'Курс: ${widget.department.currencyRates['usd']!['bank_buys']!}',
+              'Курс: ${widget.department.currencyRates[widget.currency]![widget.operationType]!}',
               style: const TextStyle(color: Colors.blue),
             ),
           )

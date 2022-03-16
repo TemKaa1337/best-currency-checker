@@ -28,9 +28,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     final Map<String, dynamic> params = {
       'location': '53.901780,27.551184',
       'radius': _radius,
-      'limit': _departmentNumber
+      'limit': _departmentNumber,
+      'currency': _currency.toLowerCase(),
+      'operationType': _operation == 'Buy' ? 'bank_sells' : 'bank_buys'
     };
-    
+    print('before request sent');
     http.Response response = await http.post(
       Uri.https('currency-checker.temkaatrashprojects.tech', '/api/get/nearest/departments'),
       headers: <String, String> {
@@ -106,11 +108,19 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   itemBuilder: (context, index) {
                     return DepartmentList(
                       department: _departments[index],
+                      currency: _currency.toLowerCase(),
+                      operationType: _operation == 'Buy' ? 'bank_sells' : 'bank_buys',
                     );
                   }
                 ),
             Settings(refresh: refresh)
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            refresh(_currency, _operation, _radius, _departmentNumber);
+          },
+          child: Icon(Icons.refresh)
         ),
       ),
     );
