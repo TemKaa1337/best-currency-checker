@@ -48,10 +48,12 @@ class DepartmentService
             ->sortBy(fn (Department $department): int => $department->distance);
 
         if ($this->operationType === 'bank_buys') {
+            // best curreency if client wants to sell usd/eur
             $departments->sortByDesc(function (Department $department): float {
                 return $department->currency_info[$this->currency][$this->operationType];
             });
         } else {
+            // best curreency if client wants to buy uxsd/eur
             $departments->sortBy(function (Department $department): float {
                 return $department->currency_info[$this->currency][$this->operationType];
             });
