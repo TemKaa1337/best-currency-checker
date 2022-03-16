@@ -33,8 +33,8 @@ class DepartmentService
         $userLocationPoint = new Point(explode(',', $this->coordinates));
 
         // TODO: add is_working_now
-        $departmentInfo = Department::all()
-            ->map(function (Department $department) use ($userLocationPoint) : Department {
+        $departments = Department::all();
+        $departments->map(function (Department $department) use ($userLocationPoint) : Department {
                 $departmentLocationPoint = new Point($department->coordinates);
                 $calculator = new DistanceCalculator(
                     startPoint: $userLocationPoint,
@@ -45,12 +45,21 @@ class DepartmentService
 
                 return $department;
             })->reject(fn (Department $department): bool => $department->distance > $this->radiusInMeters)
-            ->sortBy(fn (Department $department): int => $department->distance)
-            ->take($this->limit)
-            ->values()
-            ->all();
+            ->sortBy(fn (Department $department): int => $department->distance);
 
-        return $departmentInfo;
+        if ($this->operationType === 'bank_buys') {
+            $departments->sortByDesc(function (Department $department): float {
+                return $department->currency_info[$this->currency][$this->operationType];
+            });
+        } else {
+            $departments->sortBy(function (Department $department): float {
+                return $department->currency_info[$this->currency][$this->operationType];
+            });
+        }
+
+        return $departments->take($this->limit)
+                            ->values()
+                            ->all();
     }
 }
 
