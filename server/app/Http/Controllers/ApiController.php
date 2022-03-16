@@ -13,7 +13,9 @@ class ApiController extends Controller
         $departmentService = new DepartmentService(
             coordinates: $request->location,
             radiusInMeters: $request->radius,
-            limit: $request->limit
+            limit: $request->limit,
+            currency: $request->currency,
+            operationType: $request->operationType
         );
         $departments = $departmentService->getNearestDepartmentsWithBestRates();
 

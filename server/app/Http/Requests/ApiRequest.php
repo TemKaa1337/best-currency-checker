@@ -30,7 +30,9 @@ class ApiRequest extends FormRequest
         return [
             'location' => ['required'],
             'radius' => ['required'],
-            'limit' => ['required']
+            'limit' => ['required'],
+            'currency' => ['currency'],
+            'operationType' => ['operationType'],
         ];
     }
 
@@ -39,7 +41,9 @@ class ApiRequest extends FormRequest
         return [
             'location.required' => 'Location attribute is missing.',
             'radius.required' => 'Radius attribute is missing.',
-            'limit' => 'Limit attribute is missing.'
+            'limit' => 'Limit attribute is missing.',
+            'currency' => 'Currency attribute is missing.',
+            'operationType' => 'operationType attribute is missing.'
         ];
     }
 

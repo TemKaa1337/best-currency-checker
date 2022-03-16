@@ -10,12 +10,22 @@ class DepartmentService
     private string $coordinates;
     private int $radiusInMeters;
     private int $limit;
+    private string $currency;
+    private string $operationType;
 
-    public function __construct(string $coordinates, int $radiusInMeters, int $limit)
+    public function __construct(
+        string $coordinates,
+        int $radiusInMeters,
+        int $limit,
+        string $currency,
+        string $operationType
+    )
     {
         $this->coordinates = $coordinates;
         $this->radiusInMeters = $radiusInMeters;
         $this->limit = $limit;
+        $this->currency = $currency;
+        $this->operationType = $operationType;
     }
 
     public function getNearestDepartmentsWithBestRates(): array
