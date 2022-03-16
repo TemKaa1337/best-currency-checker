@@ -44,8 +44,7 @@ class DepartmentService
                 $department->distance = $calculator->getDistanceBetweenPointsInMeters();
 
                 return $department;
-            })->reject(fn (Department $department): bool => $department->distance > $this->radiusInMeters)
-            ->sortBy(fn (Department $department): int => $department->distance);
+            })->reject(fn (Department $department): bool => $department->distance > $this->radiusInMeters);
 
         if ($this->operationType === 'bank_buys') {
             // best curreency if client wants to sell usd/eur
