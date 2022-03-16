@@ -25,10 +25,10 @@ class GpsFormat implements Rule
      */
     public function passes($attribute, $value)
     {
-        if (strpos(',', $value) === false) return false;
-        if (strpos('.', $value) === false) return false;
+        if (strpos($value, ',', ) === false) return false;
+        if (strpos($value, '.') === false) return false;
 
-        $coordinates = explode(',', $value);
+        $coordinates = array_map('trim', explode(',', $value));
         if (count($coordinates) !== 2) return false;
 
         return is_numeric($coordinates[0]) && is_numeric($coordinates[1]);
