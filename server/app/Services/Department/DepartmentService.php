@@ -35,16 +35,16 @@ class DepartmentService
         // TODO: add is_working_now
         $departments = Department::all();
         $departments = $departments->map(function (Department $department) use ($userLocationPoint) : Department {
-                $departmentLocationPoint = new Point($department->coordinates);
-                $calculator = new DistanceCalculator(
-                    startPoint: $userLocationPoint,
-                    endPoint: $departmentLocationPoint
-                );
+            $departmentLocationPoint = new Point($department->coordinates);
+            $calculator = new DistanceCalculator(
+                startPoint: $userLocationPoint,
+                endPoint: $departmentLocationPoint
+            );
 
-                $department->distance = $calculator->getDistanceBetweenPointsInMeters();
+            $department->distance = $calculator->getDistanceBetweenPointsInMeters();
 
-                return $department;
-            })->reject(fn (Department $department): bool => $department->distance > $this->radiusInMeters);
+            return $department;
+        })->reject(fn (Department $department): bool => $department->distance > $this->radiusInMeters);
 
         $sortType = $this->operationType === 'bank_buys' ? 'sortByDesc' : 'sortBy';
 
