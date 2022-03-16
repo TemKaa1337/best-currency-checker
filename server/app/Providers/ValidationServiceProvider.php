@@ -23,6 +23,14 @@ class ValidationServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app['validator']->extend('numericarray', function ($attributes, $value, $parameters) {
+            var_dump($attributes);
+
+            foreach ($attributes as $attribute) {
+                var_dump($attribute);
+            }
+
+            return true;
+        });
     }
 }
