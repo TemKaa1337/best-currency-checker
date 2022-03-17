@@ -31,10 +31,11 @@ class DepartmentService
     public function getNearestDepartmentsWithBestRates(): array
     {
         $userLocationPoint = new Point(explode(',', $this->coordinates));
+        $sortType = $this->operationType === 'bank_buys' ? 'sortByDesc' : 'sortBy';
 
         // TODO: add is_working_now
         $departments = Department::all();
-        $departments = $departments->map(function (Department $department) use ($userLocationPoint) : Department {
+        return $departments->map(function (Department $department) use ($userLocationPoint) : Department {
             $departmentLocationPoint = new Point($department->coordinates);
             $calculator = new DistanceCalculator(
                 startPoint: $userLocationPoint,
@@ -44,15 +45,13 @@ class DepartmentService
             $department->distance = $calculator->getDistanceBetweenPointsInMeters();
 
             return $department;
-        })->reject(fn (Department $department): bool => $department->distance > $this->radiusInMeters);
-
-        $sortType = $this->operationType === 'bank_buys' ? 'sortByDesc' : 'sortBy';
-
-        return $departments->{$sortType}(callback: function (Department $department): float {
+        })->reject(fn (Department $department): bool => $department->distance > $this->radiusInMeters)
+        ->{$sortType}(callback: function (Department $department): float {
             return $department->currency_info[$this->currency][$this->operationType];
-        }, options: SORT_NUMERIC)->take($this->limit)
-                                ->values()
-                                ->all();
+        }, options: SORT_NUMERIC)
+        ->take($this->limit)
+        ->values()
+        ->all();
     }
 }
 
