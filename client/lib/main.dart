@@ -30,3 +30,5 @@ class App extends StatelessWidget {
 // 9. add refresh button (done)
 // 10. fix pixel overflow when 15 elements (done)
 // 11. make currency rate icon
+// 12. when presssing apply button transfer to 1 page
+// 13. beautify error messages

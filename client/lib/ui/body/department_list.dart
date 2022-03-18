@@ -23,20 +23,32 @@ class _DepartmentListState extends State<DepartmentList> with AutomaticKeepAlive
 
   @override
   Widget build (BuildContext context) {
+    final IconData icon = widget.currency == 'usd' ? Icons.attach_money : Icons.euro;
+
     return ExpansionTile(
       title: Row(
         children: [
-          Text(widget.department.bankName),
+          Text(
+            widget.department.bankName,
+            style: const TextStyle(color: Colors.black)
+          ),
           Padding(
             padding: const EdgeInsets.all(3),
+            child: Icon(icon, color: Colors.blue),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(0),
             child: Text(
-              'Курс: ${widget.department.currencyRates[widget.currency]![widget.operationType]!}',
+              '${widget.department.currencyRates[widget.currency]![widget.operationType]!}',
               style: const TextStyle(color: Colors.blue),
             ),
           )
         ],
       ),
-      subtitle: Text(widget.department.address + ' (в ${widget.department.distance.toString()} метрах от вас)'),
+      subtitle: Text(
+          widget.department.address + ' (в ${widget.department.distance.toString()} метрах от вас)',
+          style: const TextStyle(color: Colors.black)
+      ),
       key: PageStorageKey<int>(widget.department.id),
       children: [
         ListTile(

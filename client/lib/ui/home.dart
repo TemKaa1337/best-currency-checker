@@ -36,16 +36,17 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   Future getNearestDepartments() async {
     bool success = await setUserLocation();
-    print('after setting user location');
+    // print('after setting user location');
 
     final Map<String, dynamic> params = {
-      'location': '53.901780,27.551184',
+      // 'location': '53.901780,27.551184',
+      'location': _position.latitude.toString() + ',' + _position.longitude.toString(),
       'radius': _radius,
       'limit': _departmentNumber,
       'currency': _currency.toLowerCase(),
       'operationType': _operation == 'Buy' ? 'bank_sells' : 'bank_buys'
     };
-    print('before request sent');
+    // print('before request sent');
     http.Response response = await http.post(
       Uri.https('currency-checker.temkaatrashprojects.tech', '/api/get/nearest/departments'),
       headers: <String, String> {
@@ -53,7 +54,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       },
       body: jsonEncode(params)
     );
-    print(response.body);
+    // print(response.body);
 
     if (response.statusCode == 200) {
       List body = jsonDecode(response.body);
@@ -113,10 +114,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       _position = position;
     });
 
-    print('[position:]');
-    print(_position);
-    print(_position.latitude);
-    print(_position.longitude);
+    // print('[position:]');
+    // print(_position);
+    // print(_position.latitude);
+    // print(_position.longitude);
 
     return true;
   }
@@ -171,16 +172,16 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    print('state is');
-    print(_requestState);
-    print('currency');
-    print(_currency);
-    print('operation');
-    print(_operation);
-    print('radius');
-    print(_radius);
-    print('department numbers');
-    print(_departmentNumber);
+    // print('state is');
+    // print(_requestState);
+    // print('currency');
+    // print(_currency);
+    // print('operation');
+    // print(_operation);
+    // print('radius');
+    // print(_radius);
+    // print('department numbers');
+    // print(_departmentNumber);
 
     return DefaultTabController(
       length: 2,

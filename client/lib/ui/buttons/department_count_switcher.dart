@@ -47,7 +47,7 @@ class _DepartmentCountSwitcherState extends State<DepartmentCountSwitcher> {
                     }
                   }
 
-                  print(_departmentSelections);
+                  // print(_departmentSelections);
                 });
 
                 notifyParent();
