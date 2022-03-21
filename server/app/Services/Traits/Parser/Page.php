@@ -33,9 +33,10 @@ trait Page
                 $tds = $currentDepartment->find('td');
                 $departmentInfo = $tds[0]->find('div');
                 $innerPageLink = 'https://myfin.by'.$departmentInfo[0]->find('a')[0]->href;
-                $address = $departmentInfo[0]->text();
 
-                $lastUpdate = $this->trimLastUpdate(trim($departmentInfo[1]->text()));
+                $departmentInfoCount = count($departmentInfo);
+                $lastUpdateIndex = $departmentInfoCount === 4 ? 3 : 1;
+                $lastUpdate = $this->trimLastUpdate(trim($departmentInfo[$lastUpdateIndex]->text()));
 
                 if ($this->type === 'request') {
                     $innerInfo = $this->parseInnerPageWithRequest($innerPageLink);
@@ -65,7 +66,7 @@ trait Page
                 ]);
 
                 $updates[] = $update;
-                echo "department with address {$address}".PHP_EOL;
+
                 echo "last update {$lastUpdate}".PHP_EOL;
                 echo "inner page link {$innerPageLink}".PHP_EOL;
                 echo "pokupka usd {$bankBuysUsd}".PHP_EOL;
