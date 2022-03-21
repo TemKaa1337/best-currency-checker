@@ -29,6 +29,15 @@ class App extends StatelessWidget {
 // 8. add error message show (done)
 // 9. add refresh button (done)
 // 10. fix pixel overflow when 15 elements (done)
-// 11. make currency rate icon
-// 12. when presssing apply button transfer to 1 page
+// 11. make currency rate icon (done)
+// 12. when pressing apply button transfer to 1 page
 // 13. beautify error messages
+// 14. add application icon (done)
+// 15. add application version
+// 16. add other cities rates
+// 17. change app name (done)
+// 18. make russian application
+// 19. change app icon
+
+// flutter build apk --release
+// build/app/outputs/flutter-apk/app-release.apk
