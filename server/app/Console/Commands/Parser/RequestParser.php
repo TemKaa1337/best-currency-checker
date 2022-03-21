@@ -52,7 +52,8 @@ class RequestParser extends Command
     private function parseMainPageWithRequest(): void
     {
         foreach ($this->cities as $city) {
-            $response = Http::withHeaders(['Referer' => "https://myfin.by/currency/{$city}"])->get("https://myfin.by/currency/{$city}");
+            $url = $city === 'grodno' ? "https://myfin.by/currency-old/{$city}" : "https://myfin.by/currency/{$city}";
+            $response = Http::get($url);
             $this->getDataFromMainPage($response->body(), $city);
         }
     }
