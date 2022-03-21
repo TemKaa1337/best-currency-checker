@@ -40,7 +40,7 @@ class _RadiusSwitcherState extends State<RadiusSwitcher> {
       children: [
         const Padding(
           padding: EdgeInsets.all(10),
-          child: Text('Radius to search for?')
+          child: Text('Выберите радиус поиска:')
         ),
         const Spacer(),
         Padding(
@@ -50,12 +50,12 @@ class _RadiusSwitcherState extends State<RadiusSwitcher> {
             width: 160,
             margin: EdgeInsets.zero,
             child: GridView.builder(
-              padding: EdgeInsets.zero,
+              padding: const EdgeInsets.all(0),
               primary: false,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                mainAxisSpacing: 0,
-                crossAxisSpacing: 0
+                mainAxisSpacing: 3,
+                crossAxisSpacing: 1
               ),
               shrinkWrap: true,
               itemCount: _radiuses.length,

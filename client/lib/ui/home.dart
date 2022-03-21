@@ -26,7 +26,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   late final TabController _tabController = TabController(length: 2, vsync: this);
 
   DepartmentState _requestState = DepartmentState.loading;
-  late String _errorMessage;
   List<Department> _departments = [];
   late GpsState _gpsState;
   late Position _position;
@@ -46,6 +45,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       'currency': _currency.toLowerCase(),
       'operationType': _operation == 'Buy' ? 'bank_sells' : 'bank_buys'
     };
+
+    print(_operation);
 
     http.Response response = await http.post(
       Uri.https('currency-checker.temkaatrashprojects.tech', '/api/get/nearest/departments'),
@@ -72,8 +73,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       if (_requestState != DepartmentState.success) {
         setState(() {
           _requestState = DepartmentState.error;
-          Map<String, dynamic> listResponse = jsonDecode(response.body);
-          _errorMessage = listResponse['errors'].join('\n');
         });
       }
     }
@@ -163,7 +162,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           }
         );
       } else if (_requestState == DepartmentState.error) {
-        return DepartmentError(errorMessages: _errorMessage);
+        return const DepartmentError();
       } else if (_requestState == DepartmentState.empty) {
         return const DepartmentEmpty();
       }

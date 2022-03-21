@@ -26,7 +26,7 @@ class _CurrencyTypeSwitcherState extends State<CurrencyTypeSwitcher> {
         children: [
           const Padding(
             padding: EdgeInsets.all(10),
-            child: Text('Choose currency:'),
+            child: Text('Выберите валюту:'),
           ),
           const Spacer(),
           Padding(

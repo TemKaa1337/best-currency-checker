@@ -11,9 +11,9 @@ class DepartmentLoading extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const <Widget> [
             Padding(
-              padding: const EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(top: 20),
               child: SizedBox(
-                child: Text('Departments are loading, please wait...'),
+                child: Text('Загружаем отделения, пожалйуста, подождите...', textAlign: TextAlign.center,),
                 height: 50,
                 width: 300,
               ),

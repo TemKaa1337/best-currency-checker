@@ -13,7 +13,7 @@ class GpsDenied extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 20),
               child: SizedBox(
-                child: Text('You denied access to your GPS, please allow us to use your GPS and come back!'),
+                child: Text('Вы не разрешили доступ в вашему GPS, пожалуйста, включите его и перезайдите в приложение!', textAlign: TextAlign.center,),
                 height: 50,
                 width: 250,
               ),

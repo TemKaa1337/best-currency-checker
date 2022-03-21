@@ -25,7 +25,7 @@ class _RadiusSwitcherCellState extends State<RadiusSwitcherCell> {
   Widget build(BuildContext context) {
     return ToggleButtons(
       isSelected: [widget.isEnabled],
-      children: [Text('${widget.radius / 1000}km')],
+      children: [Text('${widget.radius / 1000}км')],
       borderRadius: const BorderRadius.all(Radius.circular(8)),
       borderWidth: 1,
       selectedColor: Colors.black,

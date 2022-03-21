@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DepartmentError extends StatelessWidget {
-  final String errorMessages;
-
-  const DepartmentError({Key? key, required String this.errorMessages}) : super(key: key);
+  const DepartmentError({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,26 +13,13 @@ class DepartmentError extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 20),
               child:  SizedBox(
-                child: Text('The is an error trying to fetch departments. Try again later.'),
+                child: Text('При получении списка отделений произошлаа ошибка, пожалуйста, повторите попытку позже.', textAlign: TextAlign.center,),
                 height: 50,
                 width: 300,
               ),
             )
           ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget> [
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child:  SizedBox(
-                child: Text('Errors: $errorMessages'),
-                height: 50,
-                width: 300,
-              ),
-            )
-          ],
-        ),
+        )
       ]
     );
   }

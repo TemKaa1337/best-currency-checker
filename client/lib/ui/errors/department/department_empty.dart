@@ -13,7 +13,7 @@ class DepartmentEmpty extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 20),
               child: SizedBox(
-                child: Text('Sad but we didnt find any departments near toy, please set other parameters bigger, like radius.'),
+                child: Text('К сожалению мы не нашли ни одного отделения поблизости, попробуйте увеличить радиус поиска.', textAlign: TextAlign.center,),
                 height: 50,
                 width: 300,
               ),

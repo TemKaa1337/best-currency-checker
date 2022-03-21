@@ -13,7 +13,7 @@ class GpsDisabled extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 20),
               child: SizedBox(
-                child: Text('Your GPS is disabled, please enable it.'),
+                child: Text('У вас выключен GPS датчик, пожалуйста, включите его!', textAlign: TextAlign.center,),
                 height: 50,
                 width: 250,
               ),

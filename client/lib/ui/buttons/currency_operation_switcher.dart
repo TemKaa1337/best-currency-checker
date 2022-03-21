@@ -12,6 +12,7 @@ class CurrencyOperationSwitcher extends StatefulWidget {
 class _CurrencyOperationSwitcherState extends State<CurrencyOperationSwitcher> {
   final List<bool> _operationTypeSelections = List.generate(2, (index) => index == 0 ? true : false);
   final List<String> _operations = ['Buy', 'Sell'];
+  final List<String> _operationLabels = ['Покупка', 'Продажа'];
 
   int _operationEnabled = 0;
 
@@ -25,15 +26,15 @@ class _CurrencyOperationSwitcherState extends State<CurrencyOperationSwitcher> {
       children: [
         const Padding(
           padding: EdgeInsets.all(10),
-          child: Text('What action to perform?'),
+          child: Text('Выберите тип операции:'),
         ),
-        Spacer(),
+        const Spacer(),
         Padding(
           padding: const EdgeInsets.all(10),
           child: Container(
             height: 40,
             child: ToggleButtons(
-              children: _operations.map((String element) => Text(element)).toList(),
+              children: _operationLabels.map((String element) => Padding(padding: EdgeInsets.all(5), child: Text(element),)).toList(),
               onPressed: (int index) {
                 setState(() {
                   int otherIndex = index == 0 ? index + 1 : index - 1;

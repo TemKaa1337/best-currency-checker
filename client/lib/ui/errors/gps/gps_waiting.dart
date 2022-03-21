@@ -13,7 +13,7 @@ class GpsWaiting extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 20),
               child: SizedBox(
-                child: Text('Getting your GPS, please wait...'),
+                child: Text('Получаем ваш GPS, пожалуйста, подождите...', textAlign: TextAlign.center,),
                 height: 50,
                 width: 250,
               ),

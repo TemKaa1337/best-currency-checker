@@ -25,9 +25,9 @@ class _DepartmentCountSwitcherState extends State<DepartmentCountSwitcher> {
       children: [
         const Padding(
             padding: EdgeInsets.all(10),
-            child: Text('Number of departments?')
+            child: Text('Выберите количество отделений:')
         ),
-        Spacer(),
+        const Spacer(),
         Padding(
           padding: const EdgeInsets.all(10),
           child: Container(

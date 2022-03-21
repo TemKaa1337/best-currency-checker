@@ -16,12 +16,12 @@ class _ApplySettingsButtonState extends State<ApplySettingsButton> {
       width: 100,
       child: Align(
         child: SizedBox(
-          width: 100,
+          width: 140,
           child: ElevatedButton.icon(
             onPressed: () {
               widget.notifyParent();
             },
-            label: const Text('Apply', style: TextStyle(color: Colors.black)),
+            label: const Text('Применить', style: TextStyle(color: Colors.black)),
             icon: const Icon(Icons.check, color: Colors.black,)
           ),
         )
