@@ -22,7 +22,9 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+class _HomeState extends State<Home> with TickerProviderStateMixin {
+  late final TabController _tabController = TabController(length: 2, vsync: this);
+
   DepartmentState _requestState = DepartmentState.loading;
   late String _errorMessage;
   List<Department> _departments = [];
@@ -34,19 +36,17 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   int _radius = 500;
   int _departmentNumber = 5;
 
-  Future getNearestDepartments() async {
+  Future<void> getNearestDepartments() async {
     bool success = await setUserLocation();
-    // print('after setting user location');
 
     final Map<String, dynamic> params = {
-      // 'location': '53.901780,27.551184',
       'location': _position.latitude.toString() + ',' + _position.longitude.toString(),
       'radius': _radius,
       'limit': _departmentNumber,
       'currency': _currency.toLowerCase(),
       'operationType': _operation == 'Buy' ? 'bank_sells' : 'bank_buys'
     };
-    // print('before request sent');
+
     http.Response response = await http.post(
       Uri.https('currency-checker.temkaatrashprojects.tech', '/api/get/nearest/departments'),
       headers: <String, String> {
@@ -54,7 +54,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       },
       body: jsonEncode(params)
     );
-    // print(response.body);
 
     if (response.statusCode == 200) {
       List body = jsonDecode(response.body);
@@ -71,7 +70,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       }
     } else {
       if (_requestState != DepartmentState.success) {
-        // settings this state only if previous request was unsuccessful
         setState(() {
           _requestState = DepartmentState.error;
           Map<String, dynamic> listResponse = jsonDecode(response.body);
@@ -108,16 +106,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     }
 
     Position position = await Geolocator.getCurrentPosition();
-
     setState(() {
       _gpsState = GpsState.permissionGranted;
       _position = position;
     });
-
-    // print('[position:]');
-    // print(_position);
-    // print(_position.latitude);
-    // print(_position.longitude);
 
     return true;
   }
@@ -125,6 +117,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    _tabController.addListener(() {
+      if (!_tabController.indexIsChanging) {
+        setState(() {
+
+        });
+      }
+    });
     getNearestDepartments();
   }
 
@@ -133,6 +132,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     _operation = operation;
     _radius = radius;
     _departmentNumber = departmentNumber;
+
+    _tabController.animateTo(0);
+    _tabController.index = 0;
 
     getNearestDepartments();
   }
@@ -167,39 +169,26 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       }
     }
 
-    return Text('pizdec');
+    return const Text('');
   }
 
   @override
   Widget build(BuildContext context) {
-    // print('state is');
-    // print(_requestState);
-    // print('currency');
-    // print(_currency);
-    // print('operation');
-    // print(_operation);
-    // print('radius');
-    // print(_radius);
-    // print('department numbers');
-    // print(_departmentNumber);
-
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: DepartmentsAppBar(),
-        body: TabBarView(
-          physics: const BouncingScrollPhysics(),
-          children: [
-            getCurrentWidget(),
-            Settings(refresh: refresh)
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            refresh(_currency, _operation, _radius, _departmentNumber);
-          },
-          child: const Icon(Icons.refresh)
-        ),
+    return Scaffold(
+      appBar: DepartmentsAppBar(tabController: _tabController),
+      body: TabBarView(
+        controller: _tabController,
+        physics: const BouncingScrollPhysics(),
+        children: [
+          getCurrentWidget(),
+          Settings(refresh: refresh)
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          refresh(_currency, _operation, _radius, _departmentNumber);
+        },
+        child: const Icon(Icons.refresh)
       ),
     );
   }

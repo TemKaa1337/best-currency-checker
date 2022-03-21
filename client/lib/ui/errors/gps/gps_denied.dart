@@ -10,11 +10,14 @@ class GpsDenied extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const <Widget> [
-            SizedBox(
-              child: Text('You denied access to your GPS, please allow us to use your GPS and come back!'),
-              height: 50,
-              width: 250,
-            ),
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: SizedBox(
+                child: Text('You denied access to your GPS, please allow us to use your GPS and come back!'),
+                height: 50,
+                width: 250,
+              ),
+            )
           ],
         ),
       ]

@@ -10,11 +10,14 @@ class GpsDisabled extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const <Widget> [
-            SizedBox(
-              child: Text('Your GPS is disabled, please enable it.'),
-              height: 50,
-              width: 250,
-            ),
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: SizedBox(
+                child: Text('Your GPS is disabled, please enable it.'),
+                height: 50,
+                width: 250,
+              ),
+            )
           ],
         ),
       ]

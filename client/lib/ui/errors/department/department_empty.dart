@@ -6,18 +6,21 @@ class DepartmentEmpty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const <Widget> [
-              SizedBox(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: const <Widget> [
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: SizedBox(
                 child: Text('Sad but we didnt find any departments near toy, please set other parameters bigger, like radius.'),
                 height: 50,
-                width: 250,
+                width: 300,
               ),
-            ],
-          ),
-        ]
+            )
+          ],
+        ),
+      ]
     );
   }
 }

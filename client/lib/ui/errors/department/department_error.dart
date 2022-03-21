@@ -12,21 +12,27 @@ class DepartmentError extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const <Widget> [
-            SizedBox(
-              child: Text('The is an error trying to fetch departments. Try again later.'),
-              height: 50,
-              width: 250,
-            ),
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+              child:  SizedBox(
+                child: Text('The is an error trying to fetch departments. Try again later.'),
+                height: 50,
+                width: 300,
+              ),
+            )
           ],
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget> [
-            SizedBox(
-              child: Text('Errors: ${errorMessages}'),
-              height: 50,
-              width: 250,
-            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child:  SizedBox(
+                child: Text('Errors: $errorMessages'),
+                height: 50,
+                width: 300,
+              ),
+            )
           ],
         ),
       ]

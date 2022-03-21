@@ -10,11 +10,14 @@ class DepartmentLoading extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const <Widget> [
-            SizedBox(
-              child: Text('Departments are loading, please wait...'),
-              height: 50,
-              width: 250,
-            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: SizedBox(
+                child: Text('Departments are loading, please wait...'),
+                height: 50,
+                width: 300,
+              ),
+            )
           ],
         ),
         Column(
@@ -22,8 +25,8 @@ class DepartmentLoading extends StatelessWidget {
           children: const <Widget> [
             SizedBox(
               child: CircularProgressIndicator(),
-              height: 200.0,
-              width: 200.0,
+              height: 50.0,
+              width: 50.0,
             ),
           ],
         )
