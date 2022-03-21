@@ -39,7 +39,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     bool success = await setUserLocation();
 
     final Map<String, dynamic> params = {
-      'location': _position.latitude.toString() + ',' + _position.longitude.toString(),
+      // 'location': _position.latitude.toString() + ',' + _position.longitude.toString(),
+      'location': '53.896171, 27.543516',
       'radius': _radius,
       'limit': _departmentNumber,
       'currency': _currency.toLowerCase(),
