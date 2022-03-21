@@ -1,6 +1,7 @@
 # best-currency-checker
 ## This project contains client and server modules. This is an application to check best currency exchange rates near you.  
 ## Overview
+Currency exchange rates are taken from ```myfin.by```.  
 Currently there is 6 cities where currency exchange rates are available:  
 - Grodno
 - Minsk
@@ -8,7 +9,6 @@ Currently there is 6 cities where currency exchange rates are available:
 - Mogilev
 - Brest
 - Vitebsk   
-Currency exchange rates are taken from ```myfin.by```.  
 ## Client  
 Client of this project is written in Dart with Flutter framework. To get an APK file you need to call ```flutter build apk --release``` and the result APK file will be located at ```build/app/outputs/flutter-apk/app-release.apk```.  
 ## Server  
