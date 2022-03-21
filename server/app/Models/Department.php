@@ -18,7 +18,8 @@ class Department extends Model
         'coordinates',
         'last_update',
         'currency_info',
-        'bank_name'
+        'bank_name',
+        'city'
     ];
 
     protected $casts = [

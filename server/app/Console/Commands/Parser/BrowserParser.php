@@ -24,6 +24,7 @@ class BrowserParser extends Command
     protected $description = 'Command description';
 
     protected string $type = 'browser';
+    protected array $cities = ['minsk', 'brest', 'vitebsk', 'gomel', 'mogilev', 'grodno'];
     /**
      * Create a new command instance.
      *
@@ -79,11 +80,14 @@ class BrowserParser extends Command
         ]);
 
         try {
-            $page = $this->browser->createPage();
-            $page->navigate('https://myfin.by/currency/minsk')->waitForNavigation();
-            $html = $page->getHtml(5000);
+            foreach ($this->cities as $city) {
+                // TODO: add header
+                $page = $this->browser->createPage();
+                $page->navigate("https://myfin.by/currency/{$city}")->waitForNavigation();
+                $html = $page->getHtml(5000);
 
-            $this->getDataFromMainPage($html);
+                $this->getDataFromMainPage($html, $city);
+            }
         } finally {
             $this->browser->close();
         }

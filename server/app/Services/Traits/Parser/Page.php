@@ -10,7 +10,7 @@ trait Page
 {
     use Helper;
 
-    protected function getDataFromMainPage(string $html): void
+    protected function getDataFromMainPage(string $html, string $city): void
     {
         $document = new Document($html);
 
@@ -25,6 +25,7 @@ trait Page
             $tbody = $department->find('tbody')[0];
             $update = [];
             echo "bank {$bank}".PHP_EOL;
+            echo "city: {$city}".PHP_EOL;
 
             $trs = $tbody->find('tr');
 
@@ -59,7 +60,8 @@ trait Page
                             'bank_sells' => $bankSellsEur
                         ]
                     ],
-                    'bank_name' => $bank
+                    'bank_name' => $bank,
+                    'city' => $city
                 ]);
 
                 $updates[] = $update;
@@ -118,6 +120,5 @@ trait Page
             'coordinates' => array_map('trim', explode(',', $coordinates))
         ];
     }
-
 }
 ?>

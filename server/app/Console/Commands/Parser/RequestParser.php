@@ -25,6 +25,7 @@ class RequestParser extends Command
     protected $description = 'Command description';
 
     protected string $type = 'request';
+    protected array $cities = ['minsk', 'brest', 'vitebsk', 'gomel', 'mogilev', 'grodno'];
 
     /**
      * Create a new command instance.
@@ -50,8 +51,10 @@ class RequestParser extends Command
 
     private function parseMainPageWithRequest(): void
     {
-        $response = Http::get('https://myfin.by/currency/minsk');
-        $this->getDataFromMainPage($response->body());
+        foreach ($this->cities as $city) {
+            $response = Http::withHeaders(['Referer' => "https://myfin.by/currency/{$city}"])->get("https://myfin.by/currency/{$city}");
+            $this->getDataFromMainPage($response->body(), $city);
+        }
     }
 
     private function parseInnerPageWithRequest(string $url): array

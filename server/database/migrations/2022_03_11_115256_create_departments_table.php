@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('last_update');
             $table->jsonb('currency_info');
             $table->string('bank_name');
+            $table->string('city');
             $table->timestamps();
         });
     }

@@ -33,7 +33,8 @@ trait Helper
             $currentDepartment = Department::where([
                 ['name', $department['name']],
                 ['coordinates', json_encode($department['coordinates'])],
-                ['bank_name', $department['bank_name']]
+                ['bank_name', $department['bank_name']],
+                ['city', $department['city']]
             ])->get()->first();
 
             if ($currentDepartment === null) {
