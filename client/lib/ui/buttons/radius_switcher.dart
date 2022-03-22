@@ -40,7 +40,7 @@ class _RadiusSwitcherState extends State<RadiusSwitcher> {
       children: [
         const Padding(
           padding: EdgeInsets.all(10),
-          child: Text('Выберите радиус поиска:')
+          child: Text('Радиус поиска:')
         ),
         const Spacer(),
         Padding(

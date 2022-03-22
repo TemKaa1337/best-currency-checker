@@ -26,7 +26,7 @@ class _CurrencyOperationSwitcherState extends State<CurrencyOperationSwitcher> {
       children: [
         const Padding(
           padding: EdgeInsets.all(10),
-          child: Text('Выберите тип операции:'),
+          child: Text('Тип операции:'),
         ),
         const Spacer(),
         Padding(

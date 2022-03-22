@@ -3,7 +3,7 @@
 ![overview](https://user-images.githubusercontent.com/37619684/159366424-86057707-baf9-40cf-bd2d-4fc5ce7e96c5.gif)
 ## Overview
 Currency exchange rates are taken from ```myfin.by```.  
-Currently there is 6 cities where currency exchange rates are available:  
+Currently there are 6 cities where currency exchange rates are available:  
 - Grodno
 - Minsk
 - Gomel

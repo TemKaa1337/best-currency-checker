@@ -39,15 +39,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     bool success = await setUserLocation();
 
     final Map<String, dynamic> params = {
-      // 'location': _position.latitude.toString() + ',' + _position.longitude.toString(),
-      'location': '53.896171, 27.543516',
+      'location': _position.latitude.toString() + ',' + _position.longitude.toString(),
+      // 'location': '53.896171, 27.543516',
       'radius': _radius,
       'limit': _departmentNumber,
       'currency': _currency.toLowerCase(),
       'operationType': _operation == 'Buy' ? 'bank_sells' : 'bank_buys'
     };
-
-    print(_operation);
 
     http.Response response = await http.post(
       Uri.https('currency-checker.temkaatrashprojects.tech', '/api/get/nearest/departments'),

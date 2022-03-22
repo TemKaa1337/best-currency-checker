@@ -16,7 +16,7 @@ class _ApplySettingsButtonState extends State<ApplySettingsButton> {
       width: 100,
       child: Align(
         child: SizedBox(
-          width: 140,
+          width: 160,
           child: ElevatedButton.icon(
             onPressed: () {
               widget.notifyParent();
