@@ -42,8 +42,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     bool success = await setUserLocation();
 
     final Map<String, dynamic> params = {
-      'location': _position.latitude.toString() + ',' + _position.longitude.toString(),
-      // 'location': '53.896171, 27.543516',
+      // 'location': _position.latitude.toString() + ',' + _position.longitude.toString(),
+      'location': '53.896171, 27.543516',
       'radius': _radius,
       'limit': _departmentNumber,
       'currency': _currency.toLowerCase(),
@@ -198,8 +198,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       if (_requestState == DepartmentState.loading) {
         return const DepartmentLoading();
       } else if (_requestState == DepartmentState.success) {
-        LatLng userPosition = LatLng(_position.latitude, _position.longitude);
-        // LatLng userPosition = LatLng(53.896171, 27.543516);
+        // LatLng userPosition = LatLng(_position.latitude, _position.longitude);
+        LatLng userPosition = LatLng(53.896171, 27.543516);
 
         List<Map<String, dynamic>> departmentsInfo = _departments.map((Department department) {
           return {

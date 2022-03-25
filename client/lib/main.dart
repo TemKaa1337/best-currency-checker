@@ -39,6 +39,7 @@ class App extends StatelessWidget {
 // 18. update readme (done)
 // 19. fix buttons (done)
 // 20. add google map (done)
+// 21. add symlinks to bank websites on click go to browser
 
 // flutter build apk --release
 // build/app/outputs/flutter-apk/app-release.apk
