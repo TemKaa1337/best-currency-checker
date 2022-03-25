@@ -5,6 +5,7 @@ import 'package:client/ui/body/department_list.dart';
 import 'package:client/services/data/department.dart';
 import 'package:client/ui/body/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:client/ui/errors/department/department_error.dart';
@@ -13,6 +14,7 @@ import 'package:client/ui/errors/department/department_empty.dart';
 import 'package:client/ui/errors/gps/gps_denied.dart';
 import 'package:client/ui/errors/gps/gps_disabled.dart';
 import 'package:client/ui/errors/gps/gps_waiting.dart';
+import 'package:client/ui/body/map.dart';
 import 'dart:convert';
 
 class Home extends StatefulWidget {
@@ -23,7 +25,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
-  late final TabController _tabController = TabController(length: 2, vsync: this);
+  late final TabController _tabController = TabController(length: 3, vsync: this);
+  bool _refreshButtonVisible = true;
 
   DepartmentState _requestState = DepartmentState.loading;
   List<Department> _departments = [];
@@ -117,12 +120,24 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     super.initState();
     _tabController.addListener(() {
       if (!_tabController.indexIsChanging) {
-        setState(() {
-
-        });
+        if ([0, 1].contains(_tabController.index)) {
+          setState(() {
+            _refreshButtonVisible = true;
+          });
+        } else {
+          setState(() {
+            _refreshButtonVisible = false;
+          });
+        }
       }
     });
     getNearestDepartments();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   void refresh(String currency, String operation, int radius, int departmentNumber) {
@@ -134,10 +149,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     _tabController.animateTo(0);
     _tabController.index = 0;
 
+    _refreshButtonVisible = true;
+
     getNearestDepartments();
   }
 
-  Widget getCurrentWidget() {
+  Widget getCurrentDepartmentWidget() {
     if (_gpsState == GpsState.gpsDisabled) {
       return const GpsDisabled();
     } else if (_gpsState == GpsState.waitingForPermission) {
@@ -170,6 +187,44 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     return const Text('');
   }
 
+  Widget getCurrentMapWidget() {
+    if (_gpsState == GpsState.gpsDisabled) {
+      return const GpsDisabled();
+    } else if (_gpsState == GpsState.waitingForPermission) {
+      return const GpsWaiting();
+    } else if (_gpsState == GpsState.permissionDenied) {
+      return const GpsDenied();
+    } else {
+      if (_requestState == DepartmentState.loading) {
+        return const DepartmentLoading();
+      } else if (_requestState == DepartmentState.success) {
+        LatLng userPosition = LatLng(_position.latitude, _position.longitude);
+        // LatLng userPosition = LatLng(53.896171, 27.543516);
+
+        List<Map<String, dynamic>> departmentsInfo = _departments.map((Department department) {
+          return {
+            'coordinates': department.coordinates,
+            'name': department.bankName,
+            'distance': department.distance,
+            'currency_rate': department.currencyRates[_currency.toLowerCase()]![_operation == 'Buy' ? 'bank_sells' : 'bank_buys' ]!,
+            'sign': _currency == 'USD' ? '\$' : '€'
+          };
+        }).toList();
+
+        return GoogleMapTab(
+            userPosition: userPosition,
+            departmentsInfo: departmentsInfo
+        );
+      } else if (_requestState == DepartmentState.error) {
+        return const DepartmentError();
+      } else if (_requestState == DepartmentState.empty) {
+        return const DepartmentEmpty();
+      }
+    }
+
+    return Text('');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -178,16 +233,20 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         controller: _tabController,
         physics: const BouncingScrollPhysics(),
         children: [
-          getCurrentWidget(),
-          Settings(refresh: refresh)
+          getCurrentDepartmentWidget(),
+          Settings(refresh: refresh),
+          getCurrentMapWidget()
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          refresh(_currency, _operation, _radius, _departmentNumber);
-        },
-        child: const Icon(Icons.refresh)
-      ),
+      floatingActionButton: Visibility(
+        visible: _refreshButtonVisible,
+        child: FloatingActionButton(
+          onPressed: () {
+            refresh(_currency, _operation, _radius, _departmentNumber);
+          },
+          child: const Icon(Icons.refresh)
+        ),
+      )
     );
   }
 }

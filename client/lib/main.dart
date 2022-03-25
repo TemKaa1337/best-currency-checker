@@ -36,8 +36,9 @@ class App extends StatelessWidget {
 // 15. add other cities rates (done)
 // 16. change app name (done)
 // 17. make russian application (done)
-// 18. update readme (done_
+// 18. update readme (done)
 // 19. fix buttons (done)
+// 20. add google map (done)
 
 // flutter build apk --release
 // build/app/outputs/flutter-apk/app-release.apk

@@ -23,6 +23,11 @@ class DepartmentsAppBar extends StatelessWidget with PreferredSizeWidget {
               width: 30,
               height: 35,
               child: Icon(Icons.settings)
+          ),
+          SizedBox(
+              width: 30,
+              height: 35,
+              child: Icon(Icons.location_city)
           )
         ],
       ),
