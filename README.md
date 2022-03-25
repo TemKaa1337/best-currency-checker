@@ -1,6 +1,6 @@
 # best-currency-checker
 ## This is an application to check best currency exchange rates near you.  
-![overview](https://user-images.githubusercontent.com/37619684/159366424-86057707-baf9-40cf-bd2d-4fc5ce7e96c5.gif)  
+![overview](https://user-images.githubusercontent.com/37619684/160199163-e6e71aa5-5b1e-49f4-a324-f25ec941e733.gif)
 [Download APK](https://github.com/TemKaa1337/best-currency-checker/raw/master/app.apk)
 ## Overview
 Currency exchange rates are taken from ```myfin.by```.  
