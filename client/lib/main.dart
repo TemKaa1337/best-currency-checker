@@ -40,6 +40,8 @@ class App extends StatelessWidget {
 // 19. fix buttons (done)
 // 20. add google map (done)
 // 21. add symlinks to bank websites on click go to browser
+// 22. samsung p30
+// android 10
 
 // flutter build apk --release
 // build/app/outputs/flutter-apk/app-release.apk
