@@ -15,7 +15,7 @@ class ApiRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -25,7 +25,7 @@ class ApiRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         // TODO: add validation for , and .
         return [
@@ -53,7 +53,7 @@ class ApiRequest extends FormRequest
         ];
     }
 
-    protected function failedValidation(Validator $validator)
+    protected function failedValidation(Validator $validator): void
     {
         $formattedErrors = [];
         $errorInfo = (new ValidationException($validator))->errors();
